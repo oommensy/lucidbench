@@ -169,7 +169,7 @@ For seeds 2000 through 2009, randomly sample at most ten eligible reports per au
 | Baseline | F1 | 0.838 | 0.837 | 0.011 | 0.824–0.857 | 0.823–0.860 |
 | Baseline | Balanced accuracy | 0.883 | 0.883 | 0.007 | 0.872–0.894 | 0.871–0.895 |
 | Baseline | ROC-AUC | 0.946 | 0.948 | 0.005 | 0.938–0.953 | 0.938–0.953 |
-| Lexical ablation | F1 | 0.803 | 0.801 | 0.013 | 0.784–0.821 | 0.783–0.858 |
+| Lexical ablation | F1 | 0.803 | 0.801 | 0.013 | 0.784–0.821 | 0.783–0.821 |
 | Lexical ablation | Balanced accuracy | 0.858 | 0.860 | 0.008 | 0.847–0.870 | 0.846–0.870 |
 | Lexical ablation | ROC-AUC | 0.928 | 0.929 | 0.005 | 0.920–0.934 | 0.920–0.934 |
 
