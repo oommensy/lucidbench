@@ -46,3 +46,15 @@ data/processed/*
 !data/processed/.gitkeep
 results/*
 !results/.gitkeep
+!results/v0.2/
+results/v0.2/*
+!results/v0.2/README.md
+!results/v0.2/dataset_summary.json
+!results/v0.2/dataset_summary.csv
+!results/v0.2/metrics.json
+!results/v0.2/metrics.csv
+!results/v0.2/confusion_matrices.csv
+!results/v0.2/length_matching.csv
+!results/v0.2/coefficients_baseline.csv
+!results/v0.2/coefficients_lexical_ablation.csv
+!results/v0.2/performance_comparison.png

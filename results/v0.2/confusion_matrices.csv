@@ -1,0 +1,13 @@
+experiment,true_label,predicted_label,count
+baseline,nonlucid,nonlucid,5249
+baseline,nonlucid,lucid,315
+baseline,lucid,nonlucid,201
+baseline,lucid,lucid,1586
+lexical_ablation,nonlucid,nonlucid,5160
+lexical_ablation,nonlucid,lucid,404
+lexical_ablation,lucid,nonlucid,269
+lexical_ablation,lucid,lucid,1518
+length_matched,nonlucid,nonlucid,1655
+length_matched,nonlucid,lucid,132
+length_matched,lucid,nonlucid,192
+length_matched,lucid,lucid,1595

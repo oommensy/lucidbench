@@ -1,0 +1,53 @@
+seed: 42
+data_path: data/raw/dreamviews-posts.tsv
+output_dir: results/v0.2
+text_column_candidates: [post_text, content, text, post, body, dream]
+label_column_candidates: [lucidity, label, type, category, dream_type]
+author_column_candidates: [user_id, username, author, user]
+positive_labels: [lucid, lucid dream, ld]
+negative_labels: [nonlucid, non-lucid, normal dream, dream]
+test_size: 0.20
+min_df: 3
+max_features: 50000
+ngram_range: [1, 2]
+C: 1.0
+bootstrap_replicates: 1000
+length_bins: 5
+coefficient_terms: 25
+minimum_coefficient_author_support: 10
+ablation_terms:
+  - lucid
+  - lucidity
+  - lucidly
+  - dream
+  - dreams
+  - dreaming
+  - dreamed
+  - dreamt
+  - realize
+  - realizes
+  - realized
+  - realizing
+  - realisation
+  - realisations
+  - realise
+  - realises
+  - realised
+  - realising
+  - realization
+  - realizations
+  - woke
+  - wake
+  - wakes
+  - waking
+  - woken
+  - awaken
+  - awakens
+  - awakened
+  - awakening
+  - reality
+  - realities
+  - real
+  - ld
+  - dild
+  - rc
