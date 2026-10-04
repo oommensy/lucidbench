@@ -1,0 +1,236 @@
+{
+  "dataset_doi": "10.5281/zenodo.19161757",
+  "dataset_license": "CC BY-NC 4.0",
+  "seed": 42,
+  "test_size": 0.2,
+  "author_column": "user_id",
+  "author_disjoint": true,
+  "split_method": "GroupShuffleSplit by author",
+  "n_total_reports": 57778,
+  "n_eligible_reports": 38061,
+  "n_train_authors": 2951,
+  "n_test_authors": 738,
+  "partition_class_counts": {
+    "train": {
+      "nonlucid": 22266,
+      "lucid": 8444
+    },
+    "test": {
+      "nonlucid": 5564,
+      "lucid": 1787
+    }
+  },
+  "ablation_terms": [
+    "lucid",
+    "lucidity",
+    "lucidly",
+    "dream",
+    "dreams",
+    "dreaming",
+    "dreamed",
+    "dreamt",
+    "realize",
+    "realizes",
+    "realized",
+    "realizing",
+    "realisation",
+    "realisations",
+    "realise",
+    "realises",
+    "realised",
+    "realising",
+    "realization",
+    "realizations",
+    "woke",
+    "wake",
+    "wakes",
+    "waking",
+    "woken",
+    "awaken",
+    "awakens",
+    "awakened",
+    "awakening",
+    "reality",
+    "realities",
+    "real",
+    "ld",
+    "dild",
+    "rc"
+  ],
+  "bootstrap": {
+    "method": "percentile cluster bootstrap resampling held-out authors",
+    "replicates": 1000,
+    "confidence_level": 0.95
+  },
+  "length_matching": {
+    "method": "downsample both labels within training-derived word-count quantile bins, separately in train and test",
+    "bins": 5,
+    "n_train": 16888,
+    "n_test": 3574,
+    "n_test_authors": 585,
+    "matched_test_class_counts": {
+      "nonlucid": 1787,
+      "lucid": 1787
+    },
+    "word_count_quantile_edges": [
+      44.0,
+      143.0,
+      237.0,
+      360.0,
+      547.0,
+      1156.0
+    ]
+  },
+  "experiments": {
+    "baseline": {
+      "name": "baseline",
+      "metrics": {
+        "accuracy": 0.9298054686437219,
+        "balanced_accuracy": 0.9154535190450079,
+        "precision": 0.8342977380326144,
+        "recall": 0.8875209848908786,
+        "f1": 0.8600867678958786,
+        "roc_auc": 0.9719606053303734,
+        "confusion_matrix": [
+          [
+            5249,
+            315
+          ],
+          [
+            201,
+            1586
+          ]
+        ]
+      },
+      "confidence_intervals": {
+        "accuracy": {
+          "lower": 0.9151103772975889,
+          "upper": 0.9418824827460829
+        },
+        "balanced_accuracy": {
+          "lower": 0.8994420108028781,
+          "upper": 0.928535067991351
+        },
+        "precision": {
+          "lower": 0.7819374777730007,
+          "upper": 0.8772128069000399
+        },
+        "recall": {
+          "lower": 0.8571317657497781,
+          "upper": 0.911313297006849
+        },
+        "f1": {
+          "lower": 0.8237957744013444,
+          "upper": 0.8896518040942206
+        },
+        "roc_auc": {
+          "lower": 0.9639421051539626,
+          "upper": 0.9787645279283032
+        }
+      },
+      "n_train": 30710,
+      "n_test": 7351,
+      "n_test_authors": 738
+    },
+    "lexical_ablation": {
+      "name": "lexical_ablation",
+      "metrics": {
+        "accuracy": 0.90844783022718,
+        "balanced_accuracy": 0.8884293747035563,
+        "precision": 0.7898022892819979,
+        "recall": 0.8494683827644096,
+        "f1": 0.8185494742518199,
+        "roc_auc": 0.9569080068245902,
+        "confusion_matrix": [
+          [
+            5160,
+            404
+          ],
+          [
+            269,
+            1518
+          ]
+        ]
+      },
+      "confidence_intervals": {
+        "accuracy": {
+          "lower": 0.892593616955878,
+          "upper": 0.9221909302147595
+        },
+        "balanced_accuracy": {
+          "lower": 0.8702305788261612,
+          "upper": 0.9030575266150244
+        },
+        "precision": {
+          "lower": 0.7284268143105206,
+          "upper": 0.8389560148794367
+        },
+        "recall": {
+          "lower": 0.8167177235832283,
+          "upper": 0.8778506967912502
+        },
+        "f1": {
+          "lower": 0.7751724843966222,
+          "upper": 0.853416774209262
+        },
+        "roc_auc": {
+          "lower": 0.9461623758149124,
+          "upper": 0.965913632144184
+        }
+      },
+      "n_train": 30710,
+      "n_test": 7351,
+      "n_test_authors": 738
+    },
+    "length_matched": {
+      "name": "length_matched",
+      "metrics": {
+        "accuracy": 0.9093452714045887,
+        "balanced_accuracy": 0.9093452714045887,
+        "precision": 0.9235668789808917,
+        "recall": 0.8925573587017348,
+        "f1": 0.9077973819009676,
+        "roc_auc": 0.9690809298894051,
+        "confusion_matrix": [
+          [
+            1655,
+            132
+          ],
+          [
+            192,
+            1595
+          ]
+        ]
+      },
+      "confidence_intervals": {
+        "accuracy": {
+          "lower": 0.8935228780529119,
+          "upper": 0.9247799986586794
+        },
+        "balanced_accuracy": {
+          "lower": 0.892321121721323,
+          "upper": 0.9245365763299819
+        },
+        "precision": {
+          "lower": 0.8916910874341497,
+          "upper": 0.9475265296906751
+        },
+        "recall": {
+          "lower": 0.8637608529111338,
+          "upper": 0.9162870994302156
+        },
+        "f1": {
+          "lower": 0.8819896352489159,
+          "upper": 0.927771558922367
+        },
+        "roc_auc": {
+          "lower": 0.9595545327374859,
+          "upper": 0.9772000482288165
+        }
+      },
+      "n_train": 16888,
+      "n_test": 3574,
+      "n_test_authors": 585
+    }
+  }
+}

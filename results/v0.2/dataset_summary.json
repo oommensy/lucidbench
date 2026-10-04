@@ -1,0 +1,95 @@
+{
+  "source": {
+    "title": "A large corpus of lucid and non-lucid dream reports",
+    "doi": "10.5281/zenodo.19161757",
+    "license": "CC BY-NC 4.0",
+    "filename": "dreamviews-posts.tsv",
+    "size_bytes": 110180933,
+    "md5": "d78a499937e063add677a3ed28393d36"
+  },
+  "n_reports_total": 57778,
+  "n_reports_binary_labeled": 38061,
+  "n_reports_excluded_unlabeled_or_missing_text": 19717,
+  "lucidity_label_counts": {
+    "nonlucid": 27830,
+    "unspecified": 15606,
+    "lucid": 10231,
+    "ambiguous": 4111
+  },
+  "binary_class_counts": {
+    "nonlucid": 27830,
+    "lucid": 10231
+  },
+  "author_column": "user_id",
+  "n_unique_authors_all_reports": 5036,
+  "n_unique_authors_binary_labeled": 3689,
+  "missing_values": {
+    "post_id": {
+      "count": 0,
+      "fraction": 0.0
+    },
+    "user_id": {
+      "count": 0,
+      "fraction": 0.0
+    },
+    "nth_post": {
+      "count": 0,
+      "fraction": 0.0
+    },
+    "timestamp": {
+      "count": 0,
+      "fraction": 0.0
+    },
+    "title": {
+      "count": 1,
+      "fraction": 1.7307625739901e-05
+    },
+    "tags": {
+      "count": 29453,
+      "fraction": 0.5097615009173042
+    },
+    "categories": {
+      "count": 0,
+      "fraction": 0.0
+    },
+    "lucidity": {
+      "count": 0,
+      "fraction": 0.0
+    },
+    "nightmare": {
+      "count": 0,
+      "fraction": 0.0
+    },
+    "wordcount": {
+      "count": 0,
+      "fraction": 0.0
+    },
+    "post_text": {
+      "count": 0,
+      "fraction": 0.0
+    }
+  },
+  "report_length_words": {
+    "0": 44.0,
+    "25": 159.0,
+    "50": 289.0,
+    "75": 490.0,
+    "90": 714.0,
+    "95": 837.0,
+    "99": 972.0,
+    "100": 1221.0
+  },
+  "reports_per_author": {
+    "n_authors": 5036,
+    "quantiles": {
+      "0": 1.0,
+      "25": 1.0,
+      "50": 2.0,
+      "75": 7.0,
+      "90": 21.0,
+      "95": 45.25,
+      "99": 164.64999999999964,
+      "100": 1000.0
+    }
+  }
+}
