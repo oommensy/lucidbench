@@ -1,0 +1,366 @@
+{
+  "text_artifact_and_abbreviation_audit_features": [
+    {
+      "feature": "character_count",
+      "nonlucid_mean": 1698.8798778296803,
+      "lucid_mean": 2065.134981917701,
+      "nonlucid_prevalence": 1.0,
+      "lucid_prevalence": 1.0,
+      "standardized_mean_difference": 0.30405830320820254
+    },
+    {
+      "feature": "word_count",
+      "nonlucid_mean": 333.96295364714337,
+      "lucid_mean": 409.14035773629166,
+      "nonlucid_prevalence": 1.0,
+      "lucid_prevalence": 1.0,
+      "standardized_mean_difference": 0.31863356138656745
+    },
+    {
+      "feature": "sentence_count",
+      "nonlucid_mean": 21.490334171757098,
+      "lucid_mean": 28.591828755742352,
+      "nonlucid_prevalence": 0.9975925260510241,
+      "lucid_prevalence": 0.9962857980647053,
+      "standardized_mean_difference": 0.3970459799225664
+    },
+    {
+      "feature": "newline_count",
+      "nonlucid_mean": 0.0,
+      "lucid_mean": 0.0,
+      "nonlucid_prevalence": 0.0,
+      "lucid_prevalence": 0.0,
+      "standardized_mean_difference": 0.0
+    },
+    {
+      "feature": "mean_word_length",
+      "nonlucid_mean": 3.941726549828214,
+      "lucid_mean": 3.8964382327945937,
+      "nonlucid_prevalence": 1.0,
+      "lucid_prevalence": 1.0,
+      "standardized_mean_difference": -0.20814378902521097
+    },
+    {
+      "feature": "uppercase_ratio",
+      "nonlucid_mean": 0.031915813299735196,
+      "lucid_mean": 0.03359488400365848,
+      "nonlucid_prevalence": 0.9946460653970536,
+      "lucid_prevalence": 0.9955038608151696,
+      "standardized_mean_difference": 0.09041314897128488
+    },
+    {
+      "feature": "digit_ratio",
+      "nonlucid_mean": 0.0033974667218739448,
+      "lucid_mean": 0.0028420183585052684,
+      "nonlucid_prevalence": 0.6430470715055695,
+      "lucid_prevalence": 0.6886912325285895,
+      "standardized_mean_difference": -0.1136959069354468
+    },
+    {
+      "feature": "url_count",
+      "nonlucid_mean": 0.0,
+      "lucid_mean": 0.0,
+      "nonlucid_prevalence": 0.0,
+      "lucid_prevalence": 0.0,
+      "standardized_mean_difference": 0.0
+    },
+    {
+      "feature": "html_tag_count",
+      "nonlucid_mean": 1.858893280632411,
+      "lucid_mean": 1.724464861694849,
+      "nonlucid_prevalence": 0.5383399209486166,
+      "lucid_prevalence": 0.5037630730133906,
+      "standardized_mean_difference": -0.038633250664456054
+    },
+    {
+      "feature": "quote_marker_count",
+      "nonlucid_mean": 0.0011498383039885017,
+      "lucid_mean": 0.0001954843123839312,
+      "nonlucid_prevalence": 0.0011498383039885017,
+      "lucid_prevalence": 0.0001954843123839312,
+      "standardized_mean_difference": -0.036815521195149664
+    },
+    {
+      "feature": "quoted_line_count",
+      "nonlucid_mean": 0.0011498383039885017,
+      "lucid_mean": 0.0001954843123839312,
+      "nonlucid_prevalence": 0.0011498383039885017,
+      "lucid_prevalence": 0.0001954843123839312,
+      "standardized_mean_difference": -0.036815521195149664
+    },
+    {
+      "feature": "signature_marker_count",
+      "nonlucid_mean": 0.0003952569169960474,
+      "lucid_mean": 0.000488710780959828,
+      "nonlucid_prevalence": 0.0003952569169960474,
+      "lucid_prevalence": 0.000488710780959828,
+      "standardized_mean_difference": 0.004446221892036941
+    },
+    {
+      "feature": "exclamation_count",
+      "nonlucid_mean": 0.6238232123607618,
+      "lucid_mean": 1.4672075065975956,
+      "nonlucid_prevalence": 0.26410348544735895,
+      "lucid_prevalence": 0.45098230866972927,
+      "standardized_mean_difference": 0.37507449518707414
+    },
+    {
+      "feature": "question_count",
+      "nonlucid_mean": 0.6039885016169602,
+      "lucid_mean": 0.8638451764245919,
+      "nonlucid_prevalence": 0.29881422924901185,
+      "lucid_prevalence": 0.37796891799433097,
+      "standardized_mean_difference": 0.17239024795140195
+    },
+    {
+      "feature": "comma_count",
+      "nonlucid_mean": 12.92608695652174,
+      "lucid_mean": 15.429381292151305,
+      "nonlucid_prevalence": 0.9462091268415379,
+      "lucid_prevalence": 0.9450689082201154,
+      "standardized_mean_difference": 0.18743560627965253
+    },
+    {
+      "feature": "period_count",
+      "nonlucid_mean": 21.485986345670142,
+      "lucid_mean": 28.20594272309647,
+      "nonlucid_prevalence": 0.9971254042400287,
+      "lucid_prevalence": 0.9959925715961294,
+      "standardized_mean_difference": 0.3736085161933272
+    },
+    {
+      "feature": "semicolon_count",
+      "nonlucid_mean": 0.18041681638519583,
+      "lucid_mean": 0.17622910761411398,
+      "nonlucid_prevalence": 0.10517427236794825,
+      "lucid_prevalence": 0.10790734043593002,
+      "standardized_mean_difference": -0.005888322890901429
+    },
+    {
+      "feature": "colon_count",
+      "nonlucid_mean": 1.0941430111390587,
+      "lucid_mean": 1.0077216303391652,
+      "nonlucid_prevalence": 0.382500898311175,
+      "lucid_prevalence": 0.4105170560062555,
+      "standardized_mean_difference": -0.03785039371609878
+    },
+    {
+      "feature": "parenthesis_count",
+      "nonlucid_mean": 2.9613726194753864,
+      "lucid_mean": 2.914671097644414,
+      "nonlucid_prevalence": 0.5486884656845131,
+      "lucid_prevalence": 0.5631903039781058,
+      "standardized_mean_difference": -0.010301109255246549
+    },
+    {
+      "feature": "bracket_count",
+      "nonlucid_mean": 0.16776859504132233,
+      "lucid_mean": 0.1554100283452253,
+      "nonlucid_prevalence": 0.0404599353215954,
+      "lucid_prevalence": 0.03870589385201838,
+      "standardized_mean_difference": -0.010291605577715865
+    },
+    {
+      "feature": "asterisk_count",
+      "nonlucid_mean": 0.1729787998562702,
+      "lucid_mean": 0.15521454403284138,
+      "nonlucid_prevalence": 0.05159899389148401,
+      "lucid_prevalence": 0.05346495943700518,
+      "standardized_mean_difference": -0.017326347410474487
+    },
+    {
+      "feature": "underscore_count",
+      "nonlucid_mean": 0.03905856988860942,
+      "lucid_mean": 0.02775877235851823,
+      "nonlucid_prevalence": 0.022098454904779016,
+      "lucid_prevalence": 0.018375525364089533,
+      "standardized_mean_difference": -0.03736418068710259
+    },
+    {
+      "feature": "bullet_line_count",
+      "nonlucid_mean": 0.004132231404958678,
+      "lucid_mean": 0.003127748998142899,
+      "nonlucid_prevalence": 0.004132231404958678,
+      "lucid_prevalence": 0.003127748998142899,
+      "standardized_mean_difference": -0.01670299802234368
+    },
+    {
+      "feature": "repeated_punctuation_count",
+      "nonlucid_mean": 0.731908012935681,
+      "lucid_mean": 1.1127944482455283,
+      "nonlucid_prevalence": 0.3085159899389148,
+      "lucid_prevalence": 0.38334473658488905,
+      "standardized_mean_difference": 0.1636838291333203
+    },
+    {
+      "feature": "forum_abbreviation_count",
+      "nonlucid_mean": 0.1433704635285663,
+      "lucid_mean": 0.6953376991496433,
+      "nonlucid_prevalence": 0.09784405318002155,
+      "lucid_prevalence": 0.3858860326458802,
+      "standardized_mean_difference": 0.602589000196547
+    }
+  ],
+  "forum_abbreviation_count_excluded_from_artifact_model": true,
+  "metadata_completeness_by_label": {
+    "nonlucid": {
+      "title": {
+        "missing_count": 0,
+        "missing_fraction": 0.0,
+        "unique_nonmissing_values": 26935
+      },
+      "tags": {
+        "missing_count": 11139,
+        "missing_fraction": 0.4002515271289975,
+        "unique_nonmissing_values": 15786
+      },
+      "categories": {
+        "missing_count": 0,
+        "missing_fraction": 0.0,
+        "unique_nonmissing_values": 103
+      },
+      "nth_post": {
+        "missing_count": 0,
+        "missing_fraction": 0.0,
+        "unique_nonmissing_values": 912
+      },
+      "timestamp": {
+        "missing_count": 0,
+        "missing_fraction": 0.0,
+        "unique_nonmissing_values": 27513
+      },
+      "wordcount": {
+        "missing_count": 0,
+        "missing_fraction": 0.0,
+        "unique_nonmissing_values": 950
+      }
+    },
+    "lucid": {
+      "title": {
+        "missing_count": 0,
+        "missing_fraction": 0.0,
+        "unique_nonmissing_values": 9754
+      },
+      "tags": {
+        "missing_count": 4899,
+        "missing_fraction": 0.47883882318443943,
+        "unique_nonmissing_values": 4946
+      },
+      "categories": {
+        "missing_count": 0,
+        "missing_fraction": 0.0,
+        "unique_nonmissing_values": 132
+      },
+      "nth_post": {
+        "missing_count": 0,
+        "missing_fraction": 0.0,
+        "unique_nonmissing_values": 648
+      },
+      "timestamp": {
+        "missing_count": 0,
+        "missing_fraction": 0.0,
+        "unique_nonmissing_values": 10182
+      },
+      "wordcount": {
+        "missing_count": 0,
+        "missing_fraction": 0.0,
+        "unique_nonmissing_values": 948
+      }
+    }
+  },
+  "metadata_distribution_by_label": {
+    "nonlucid": {
+      "nth_post": {
+        "median": 28.0,
+        "p25": 7.0,
+        "p75": 97.0
+      },
+      "wordcount": {
+        "median": 267.0,
+        "p25": 150.0,
+        "p75": 447.0
+      },
+      "title_character_count_median": 22.0,
+      "timestamp_year_counts": {
+        "2010": 3699,
+        "2011": 5693,
+        "2012": 4645,
+        "2013": 3581,
+        "2014": 2930,
+        "2015": 1995,
+        "2016": 2126,
+        "2017": 1200,
+        "2018": 941,
+        "2019": 466,
+        "2020": 554
+      },
+      "categories_with_lucid_term_fraction": 0.0,
+      "categories_with_nonlucid_term_fraction": 1.0,
+      "tagged_report_fraction": 0.5997484728710025,
+      "tags_with_lucid_term_fraction": 0.030735126714996105,
+      "tags_with_nonlucid_term_fraction": 0.0464921215026062,
+      "own_user_id_mentioned_in_text_count": 0,
+      "own_user_id_mention_caveat": "Counts literal user_id token occurrences in each author's report; common/numeric IDs may produce false positives. IDs are not exported."
+    },
+    "lucid": {
+      "nth_post": {
+        "median": 26.0,
+        "p25": 5.0,
+        "p75": 91.0
+      },
+      "wordcount": {
+        "median": 352.0,
+        "p25": 203.0,
+        "p75": 563.0
+      },
+      "title_character_count_median": 23.0,
+      "timestamp_year_counts": {
+        "2010": 1226,
+        "2011": 1914,
+        "2012": 1740,
+        "2013": 1337,
+        "2014": 1328,
+        "2015": 870,
+        "2016": 804,
+        "2017": 439,
+        "2018": 292,
+        "2019": 111,
+        "2020": 170
+      },
+      "categories_with_lucid_term_fraction": 1.0,
+      "categories_with_nonlucid_term_fraction": 0.0,
+      "tagged_report_fraction": 0.5211611768155605,
+      "tags_with_lucid_term_fraction": 0.25225056264066015,
+      "tags_with_nonlucid_term_fraction": 0.001312828207051763,
+      "own_user_id_mentioned_in_text_count": 0,
+      "own_user_id_mention_caveat": "Counts literal user_id token occurrences in each author's report; common/numeric IDs may produce false positives. IDs are not exported."
+    }
+  },
+  "author_label_distribution": {
+    "unique_authors": 3689,
+    "authors_with_only_nonlucid_reports": 1571,
+    "authors_with_only_lucid_reports": 923,
+    "authors_with_both_labels": 1195,
+    "authors_with_at_least_10_binary_reports": 656,
+    "note": "Author IDs are not exported; counts are descriptive only."
+  },
+  "text": {
+    "url_pattern": "https?://|www\\.",
+    "html_tag_pattern": "<\\s*/?\\s*[a-z][^>]*>",
+    "quote_pattern": "(?im)^\\s*(?:>|(?:\\[/?quote[^\\]]*\\])|(?:on .{1,120}wrote:))",
+    "signature_pattern": "(?im)^\\s*(?:--\\s*$|sent from my |posted by |dream journal:?|thanks for reading|end of (?:dream|post))",
+    "forum_abbreviations_audited": [
+      "ld",
+      "dild",
+      "mild",
+      "wbtb",
+      "rc",
+      "lol",
+      "omg",
+      "afaik",
+      "imo",
+      "imho"
+    ]
+  },
+  "interpretation": "Descriptive class differences and artifact-only metrics are a negative control, not proof that formatting caused classification performance."
+}

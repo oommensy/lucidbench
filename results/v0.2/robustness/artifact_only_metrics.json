@@ -1,0 +1,76 @@
+{
+  "model": "StandardScaler + class-weighted LogisticRegression",
+  "features": [
+    "character_count",
+    "word_count",
+    "sentence_count",
+    "newline_count",
+    "mean_word_length",
+    "uppercase_ratio",
+    "digit_ratio",
+    "url_count",
+    "html_tag_count",
+    "quote_marker_count",
+    "quoted_line_count",
+    "signature_marker_count",
+    "exclamation_count",
+    "question_count",
+    "comma_count",
+    "period_count",
+    "semicolon_count",
+    "colon_count",
+    "parenthesis_count",
+    "bracket_count",
+    "asterisk_count",
+    "underscore_count",
+    "bullet_line_count",
+    "repeated_punctuation_count"
+  ],
+  "excluded_from_model": [
+    "forum abbreviations (reported only as an artifact-audit variable)"
+  ],
+  "split": "GroupShuffleSplit by user_id, seed 42, same held-out authors as TF-IDF",
+  "n_train": 30710,
+  "n_test": 7351,
+  "n_test_authors": 738,
+  "author_disjoint": true,
+  "metrics": {
+    "accuracy": 0.6246769147054823,
+    "balanced_accuracy": 0.6094255701674809,
+    "precision": 0.3403416557161629,
+    "recall": 0.5797425853385563,
+    "f1": 0.42889670875595115,
+    "roc_auc": 0.6560021716068242,
+    "confusion_matrix": [
+      [
+        3556,
+        2008
+      ],
+      [
+        751,
+        1036
+      ]
+    ]
+  },
+  "author_balanced_metrics": {
+    "n_reports": 7351,
+    "n_authors": 738,
+    "weighting": "each report weight = 1 / number of held-out reports for its author",
+    "accuracy": 0.6297217699117524,
+    "balanced_accuracy": 0.5984347460647035,
+    "precision": 0.4958398109960821,
+    "recall": 0.48053391106739135,
+    "f1": 0.4880668913073714,
+    "author_weighted_confusion_matrix": [
+      [
+        334.4717864282681,
+        132.44873974801257
+      ],
+      [
+        140.81659405711466,
+        130.26287976660026
+      ]
+    ],
+    "roc_auc": 0.6363034140616488
+  }
+}

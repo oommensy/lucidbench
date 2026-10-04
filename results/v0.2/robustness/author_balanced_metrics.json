@@ -1,0 +1,60 @@
+{
+  "method": "Each report is weighted by 1 / its author's held-out report count, so each author contributes total weight one. Precision, recall, F1, accuracy, balanced accuracy, and weighted ROC-AUC are computed from these report weights; this is author-equal weighting, not an average of per-author F1 values.",
+  "split_seed": 42,
+  "n_test_reports": 7351,
+  "n_test_authors": 738,
+  "baseline": {
+    "n_reports": 7351,
+    "n_authors": 738,
+    "weighting": "each report weight = 1 / number of held-out reports for its author",
+    "accuracy": 0.8764378054056017,
+    "balanced_accuracy": 0.8636257499315786,
+    "precision": 0.8430981153696695,
+    "recall": 0.8153452856150036,
+    "f1": 0.8289894889019578,
+    "author_weighted_confusion_matrix": [
+      [
+        425.78772938016857,
+        41.13279679611275
+      ],
+      [
+        50.05610281455319,
+        221.02337100916185
+      ]
+    ],
+    "roc_auc": 0.9364487114134459
+  },
+  "lexical_ablation": {
+    "n_reports": 7351,
+    "n_authors": 738,
+    "weighting": "each report weight = 1 / number of held-out reports for its author",
+    "accuracy": 0.8508034941626784,
+    "balanced_accuracy": 0.8383520998662861,
+    "precision": 0.8001998639515858,
+    "recall": 0.7914307374637088,
+    "f1": 0.7957911438526296,
+    "author_weighted_confusion_matrix": [
+      [
+        413.3523508124766,
+        53.56817536380531
+      ],
+      [
+        56.53884594413808,
+        214.54062787957704
+      ]
+    ],
+    "roc_auc": 0.9186005348613714
+  },
+  "report_weighted_baseline": {
+    "f1": 0.8600867678958786,
+    "balanced_accuracy": 0.9154535190450079,
+    "roc_auc": 0.9719606053303734,
+    "accuracy": 0.9298054686437219
+  },
+  "report_weighted_lexical_ablation": {
+    "f1": 0.8185494742518199,
+    "balanced_accuracy": 0.8884293747035563,
+    "roc_auc": 0.9569080068245902,
+    "accuracy": 0.90844783022718
+  }
+}

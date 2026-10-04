@@ -439,7 +439,9 @@ def _experiment_result(
     }
 
 
-def run_experiments(config_path: str | Path) -> dict:
+def run_experiments(
+    config_path: str | Path, *, allow_report_level_split: bool = False
+) -> dict:
     with Path(config_path).open(encoding="utf-8") as file:
         cfg = yaml.safe_load(file)
 
@@ -457,20 +459,19 @@ def run_experiments(config_path: str | Path) -> dict:
     lengths = np.fromiter((len(text.split()) for text in texts), dtype=int)
     author_available = columns.author is not None
     author_ids_complete = author_available and analytic[columns.author].notna().all()
-    if author_available:
-        groups = (
-            analytic[columns.author]
-            .astype("string")
-            .fillna(
-                pd.Series(
-                    [f"missing-author-row-{index}" for index in range(len(analytic))],
-                    index=analytic.index,
-                    dtype="string",
-                )
-            )
-            .astype(str)
-            .to_numpy()
+    if not author_ids_complete and not allow_report_level_split:
+        reason = (
+            f"Author column {columns.author!r} contains missing values."
+            if author_available
+            else "No author identity column was found."
         )
+        raise ValueError(
+            f"{reason} LucidBench v0.2 requires complete author IDs for its main "
+            "experiment. Pass --allow-report-level-split only for an explicitly "
+            "leakage-sensitive report-level analysis."
+        )
+    if author_ids_complete:
+        groups = analytic[columns.author].astype(str).to_numpy()
     else:
         groups = None
 
@@ -599,6 +600,7 @@ def run_experiments(config_path: str | Path) -> dict:
         "test_size": float(cfg["test_size"]),
         "author_column": columns.author,
         "author_disjoint": bool(author_ids_complete),
+        "leakage_sensitive": not bool(author_ids_complete),
         "split_method": (
             "GroupShuffleSplit by author"
             if author_available
@@ -706,8 +708,13 @@ def run_experiments(config_path: str | Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="configs/v0.2.yaml")
+    parser.add_argument(
+        "--allow-report-level-split",
+        action="store_true",
+        help="Explicitly permit leakage-sensitive report-level splitting without complete author IDs.",
+    )
     args = parser.parse_args()
-    run_experiments(args.config)
+    run_experiments(args.config, allow_report_level_split=args.allow_report_level_split)
 
 
 if __name__ == "__main__":

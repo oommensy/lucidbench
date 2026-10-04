@@ -61,7 +61,7 @@ python -m pytest
 
 ## Methodology
 
-**Dreamer/author-disjoint splitting is required wherever user IDs are available.** All reports from an identified dreamer must remain on one side of a train/test split, preventing the model from benefiting from the same person's writing style in both sets. When the data have no author identifier, the current splitter uses stratified report-level splitting; those results must be identified as not author-disjoint.
+**Dreamer/author-disjoint splitting is required for LucidBench's main experiments.** All reports from an identified dreamer must remain on one side of a train/test split, preventing the model from benefiting from the same person's writing style in both sets. The v0.2 experiment now fails if author IDs are missing or incomplete. Exploratory report-level splitting requires the explicit `--allow-report-level-split` option and is labeled leakage-sensitive.
 
 Future analyses include:
 
@@ -122,10 +122,29 @@ These are initial results from one fixed author-disjoint split, not independent 
 
 ![Author-disjoint F1 comparison with 95% author-bootstrap intervals](results/v0.2/performance_comparison.png)
 
+## v0.2.1 robustness analyses
+
+These follow-up checks were added to the open, unmerged v0.2 PR. The original v0.2 results above are preserved. The analyses use the same source corpus and fixed TF-IDF/logistic-regression configuration where applicable; outputs and exact methods are in [`results/v0.2/robustness/`](results/v0.2/robustness/) and [`docs/RESEARCH_PROTOCOL.md`](docs/RESEARCH_PROTOCOL.md).
+
+Across **30 predetermined author-disjoint splits** (seeds 1000–1029), mean F1 was **0.846** for baseline text (SD 0.024; median 0.848; 2.5th–97.5th split percentiles 0.806–0.882; min–max 0.768–0.897) and **0.805** after cue ablation (SD 0.026; median 0.805; percentiles 0.761–0.844; min–max 0.723–0.858). Mean ROC-AUC was 0.954 (SD 0.014; median 0.956; percentiles 0.923–0.970; min–max 0.906–0.972) for baseline and 0.936 (SD 0.015; median 0.938; percentiles 0.903–0.955; min–max 0.886–0.957) for ablation. These are empirical distributions over 30 splits, not confidence intervals.
+
+Equal-author-weighted metrics on the original seed-42 test split assign each report weight `1 / that author's number of held-out reports`, making each author's total weight one. Baseline F1 was **0.829**, balanced accuracy 0.864, and ROC-AUC 0.936; ablation F1 was **0.796**, balanced accuracy 0.838, and ROC-AUC 0.919. This weights report-level confusion counts and ROC-AUC; it is not an average of per-author F1 scores.
+
+In **10 seeded sensitivity runs** (seeds 2000–2009), reports were randomly capped at ten per author before author-disjoint splitting. Mean baseline F1 was **0.838** (SD 0.011; median 0.837; 2.5th–97.5th percentiles 0.824–0.857; min–max 0.823–0.860); ablation F1 was **0.803** (SD 0.013; median 0.801; percentiles 0.784–0.821; min–max 0.783–0.858). Mean ROC-AUC was 0.946 (SD 0.005; median 0.948; percentiles 0.938–0.953; min–max 0.938–0.953) and 0.928 (SD 0.005; median 0.929; percentiles 0.920–0.934; min–max 0.920–0.934), respectively.
+
+The cross-author audit found **zero exact duplicate pairs** and 17 approximate near-duplicate pairs over the full corpus (34 distinct reports involved). Seven pairs intersected the binary-labeled subset; removing their 19 reports and rerunning the baseline changed F1 from 0.860 to **0.859** and ROC-AUC from 0.972 to **0.972**. Near-duplicate candidate generation is approximate SimHash/LSH and may miss matches.
+
+A structural-only negative-control logistic model used 24 non-lexical counts/ratios (length, punctuation, line structure, URL/HTML/quote/signature markers, etc.) on the same author-disjoint split. It achieved **F1 0.429 and ROC-AUC 0.656**, versus baseline text F1 0.860/AUC 0.972 and cue-ablated text F1 0.819/AUC 0.957. It is above chance, so non-semantic structure contributes signal, but it is substantially weaker than text. Forum-abbreviation counts were audited separately and deliberately excluded from that model; the count had a class standardized mean difference of 0.603.
+
+The audit found a particularly important corpus artifact: all labeled nonlucid rows have `nonlucid` category terms, and all labeled lucid rows have `lucid` category terms. These category metadata are **not model inputs** (the text model uses only `post_text`), but they confirm the corpus label is closely reflected in forum categorization. Lucid terms in tags were more common among lucid reports (25.2% of tagged lucid reports vs. 3.1% of tagged nonlucid reports). URLs, quote markers, and signatures were rare or absent; HTML tags were common, with similar but not identical per-class means. The audit found no report text containing its own author ID, though the check can miss alternate username mentions.
+
+The higher language-model results persist across repeated splits and author caps, but the structural control is above chance and forum categories strongly encode the assigned class. This supports reproducibility of text-based label discrimination in this corpus, **not** validated computational markers of lucid-dream phenomenology.
+
 ## Research status
 
 - **Produced in v0.2:** corpus summary, author-disjoint TF-IDF baseline, lexical-cue ablation, author-cluster bootstrap intervals, length-matched sensitivity analysis, and coefficient inspection.
-- **Still planned:** repeated or cross-validated author-group evaluation, user-balanced and label-definition sensitivity checks, human-annotated phenomenology, and external laboratory validation.
+- **Robustness analyses:** repeated author-disjoint splits, equal-author-weighted metrics, ten-report author cap sensitivity, duplicate audit, structural negative control, and stricter author-ID requirement.
+- **Still planned:** user-balanced and label-definition sensitivity checks, human-annotated phenomenology, and external laboratory validation.
 - **Validated findings:** none are claimed. These baseline associations are not causal, clinically useful, or independently validated.
 
 ## Roadmap

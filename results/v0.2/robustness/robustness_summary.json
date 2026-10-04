@@ -1,0 +1,199 @@
+{
+  "repeated_splits": {
+    "count": 30,
+    "seed_start": 1000,
+    "seed_end": 1029,
+    "summary_file": "repeated_split_summary.csv"
+  },
+  "author_balanced": {
+    "method": "Each report is weighted by 1 / its author's held-out report count, so each author contributes total weight one. Precision, recall, F1, accuracy, balanced accuracy, and weighted ROC-AUC are computed from these report weights; this is author-equal weighting, not an average of per-author F1 values.",
+    "split_seed": 42,
+    "n_test_reports": 7351,
+    "n_test_authors": 738,
+    "baseline": {
+      "n_reports": 7351,
+      "n_authors": 738,
+      "weighting": "each report weight = 1 / number of held-out reports for its author",
+      "accuracy": 0.8764378054056017,
+      "balanced_accuracy": 0.8636257499315786,
+      "precision": 0.8430981153696695,
+      "recall": 0.8153452856150036,
+      "f1": 0.8289894889019578,
+      "author_weighted_confusion_matrix": [
+        [
+          425.78772938016857,
+          41.13279679611275
+        ],
+        [
+          50.05610281455319,
+          221.02337100916185
+        ]
+      ],
+      "roc_auc": 0.9364487114134459
+    },
+    "lexical_ablation": {
+      "n_reports": 7351,
+      "n_authors": 738,
+      "weighting": "each report weight = 1 / number of held-out reports for its author",
+      "accuracy": 0.8508034941626784,
+      "balanced_accuracy": 0.8383520998662861,
+      "precision": 0.8001998639515858,
+      "recall": 0.7914307374637088,
+      "f1": 0.7957911438526296,
+      "author_weighted_confusion_matrix": [
+        [
+          413.3523508124766,
+          53.56817536380531
+        ],
+        [
+          56.53884594413808,
+          214.54062787957704
+        ]
+      ],
+      "roc_auc": 0.9186005348613714
+    },
+    "report_weighted_baseline": {
+      "f1": 0.8600867678958786,
+      "balanced_accuracy": 0.9154535190450079,
+      "roc_auc": 0.9719606053303734,
+      "accuracy": 0.9298054686437219
+    },
+    "report_weighted_lexical_ablation": {
+      "f1": 0.8185494742518199,
+      "balanced_accuracy": 0.8884293747035563,
+      "roc_auc": 0.9569080068245902,
+      "accuracy": 0.90844783022718
+    }
+  },
+  "capped_author": {
+    "maximum_reports_per_author": 10,
+    "count": 10,
+    "seed_start": 2000,
+    "seed_end": 2009,
+    "summary_file": "capped_author_summary.csv"
+  },
+  "duplicate_audit": {
+    "method": {
+      "exact": "case-fold text and collapse whitespace, then match identical normalized full reports across different user_id values",
+      "near": "5-word shingle 64-bit SimHash; four 16-bit locality-sensitive bands generate candidate pairs; verify distinct-author pairs by shingle-set Jaccard >= 0.85",
+      "note": "LSH candidate generation is approximate and may miss some near duplicates; reports are not published."
+    },
+    "n_reports_scanned": 57778,
+    "n_cross_author_exact_pairs": 0,
+    "n_cross_author_near_pairs": 17,
+    "n_reports_in_any_cross_author_pair": 34,
+    "n_binary_labeled_pairs": 7,
+    "n_binary_labeled_reports_removed": 19,
+    "n_binary_labeled_reports_retained": 38042,
+    "removed_pair_counts_by_kind": {
+      "exact": 0,
+      "near": 7
+    },
+    "rerun_baseline": {
+      "seed": 42,
+      "n_train": 30698,
+      "n_test": 7344,
+      "n_train_authors": 2951,
+      "n_test_authors": 738,
+      "metrics": {
+        "accuracy": 0.9293300653594772,
+        "balanced_accuracy": 0.9145516062518158,
+        "precision": 0.8339483394833949,
+        "recall": 0.8857782754759238,
+        "f1": 0.8590822698886778,
+        "roc_auc": 0.9720331900548305,
+        "confusion_matrix": [
+          [
+            5243,
+            315
+          ],
+          [
+            204,
+            1582
+          ]
+        ]
+      }
+    }
+  },
+  "artifact_only": {
+    "model": "StandardScaler + class-weighted LogisticRegression",
+    "features": [
+      "character_count",
+      "word_count",
+      "sentence_count",
+      "newline_count",
+      "mean_word_length",
+      "uppercase_ratio",
+      "digit_ratio",
+      "url_count",
+      "html_tag_count",
+      "quote_marker_count",
+      "quoted_line_count",
+      "signature_marker_count",
+      "exclamation_count",
+      "question_count",
+      "comma_count",
+      "period_count",
+      "semicolon_count",
+      "colon_count",
+      "parenthesis_count",
+      "bracket_count",
+      "asterisk_count",
+      "underscore_count",
+      "bullet_line_count",
+      "repeated_punctuation_count"
+    ],
+    "excluded_from_model": [
+      "forum abbreviations (reported only as an artifact-audit variable)"
+    ],
+    "split": "GroupShuffleSplit by user_id, seed 42, same held-out authors as TF-IDF",
+    "n_train": 30710,
+    "n_test": 7351,
+    "n_test_authors": 738,
+    "author_disjoint": true,
+    "metrics": {
+      "accuracy": 0.6246769147054823,
+      "balanced_accuracy": 0.6094255701674809,
+      "precision": 0.3403416557161629,
+      "recall": 0.5797425853385563,
+      "f1": 0.42889670875595115,
+      "roc_auc": 0.6560021716068242,
+      "confusion_matrix": [
+        [
+          3556,
+          2008
+        ],
+        [
+          751,
+          1036
+        ]
+      ]
+    },
+    "author_balanced_metrics": {
+      "n_reports": 7351,
+      "n_authors": 738,
+      "weighting": "each report weight = 1 / number of held-out reports for its author",
+      "accuracy": 0.6297217699117524,
+      "balanced_accuracy": 0.5984347460647035,
+      "precision": 0.4958398109960821,
+      "recall": 0.48053391106739135,
+      "f1": 0.4880668913073714,
+      "author_weighted_confusion_matrix": [
+        [
+          334.4717864282681,
+          132.44873974801257
+        ],
+        [
+          140.81659405711466,
+          130.26287976660026
+        ]
+      ],
+      "roc_auc": 0.6363034140616488
+    }
+  },
+  "artifact_audit": {
+    "summary_file": "artifact_audit.json",
+    "n_structural_features": 24,
+    "forum_abbreviation_count_is_audit_only": true
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "method": {
+    "exact": "case-fold text and collapse whitespace, then match identical normalized full reports across different user_id values",
+    "near": "5-word shingle 64-bit SimHash; four 16-bit locality-sensitive bands generate candidate pairs; verify distinct-author pairs by shingle-set Jaccard >= 0.85",
+    "note": "LSH candidate generation is approximate and may miss some near duplicates; reports are not published."
+  },
+  "n_reports_scanned": 57778,
+  "n_cross_author_exact_pairs": 0,
+  "n_cross_author_near_pairs": 17,
+  "n_reports_in_any_cross_author_pair": 34,
+  "n_binary_labeled_pairs": 7,
+  "n_binary_labeled_reports_removed": 19,
+  "n_binary_labeled_reports_retained": 38042,
+  "removed_pair_counts_by_kind": {
+    "exact": 0,
+    "near": 7
+  },
+  "rerun_baseline": {
+    "seed": 42,
+    "n_train": 30698,
+    "n_test": 7344,
+    "n_train_authors": 2951,
+    "n_test_authors": 738,
+    "metrics": {
+      "accuracy": 0.9293300653594772,
+      "balanced_accuracy": 0.9145516062518158,
+      "precision": 0.8339483394833949,
+      "recall": 0.8857782754759238,
+      "f1": 0.8590822698886778,
+      "roc_auc": 0.9720331900548305,
+      "confusion_matrix": [
+        [
+          5243,
+          315
+        ],
+        [
+          204,
+          1582
+        ]
+      ]
+    }
+  }
+}
