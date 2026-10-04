@@ -1,0 +1,1 @@
+GitHub Actions can be added after first successful local run to avoid shipping an unverified CI workflow.

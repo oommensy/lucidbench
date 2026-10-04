@@ -1,0 +1,14 @@
+seed: 42
+data_path: data/raw/dreamviews-posts.tsv
+output_dir: results/baseline
+text_column_candidates: [post_text, content, text, post, body, dream]
+label_column_candidates: [lucidity, label, type, category, dream_type]
+author_column_candidates: [user_id, username, author, user]
+positive_labels: [lucid, lucid dream, ld]
+negative_labels: [nonlucid, non-lucid, normal dream, dream]
+test_size: 0.20
+validation_size: 0.10
+min_df: 3
+max_features: 50000
+ngram_range: [1, 2]
+C: 1.0

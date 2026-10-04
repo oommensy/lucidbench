@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+title: LucidBench
+type: software
+message: "If you use LucidBench, please cite this repository and the original Mallett dream-report corpus."
+version: 0.1.0
+date-released: 2026-08-20
+license: MIT

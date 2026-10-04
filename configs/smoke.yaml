@@ -1,0 +1,14 @@
+seed: 42
+data_path: data/raw/smoke.tsv
+output_dir: results/smoke
+text_column_candidates: [post_text]
+label_column_candidates: [lucidity]
+author_column_candidates: [user_id]
+positive_labels: [lucid]
+negative_labels: [nonlucid]
+test_size: 0.25
+validation_size: 0.10
+min_df: 1
+max_features: 5000
+ngram_range: [1, 2]
+C: 1.0
