@@ -124,7 +124,7 @@ These are initial results from one fixed author-disjoint split, not independent 
 
 ## v0.2.1 robustness analyses
 
-These follow-up checks were added to the open, unmerged v0.2 PR. The original v0.2 results above are preserved. The analyses use the same source corpus and fixed TF-IDF/logistic-regression configuration where applicable; outputs and exact methods are in [`results/v0.2/robustness/`](results/v0.2/robustness/) and [`docs/RESEARCH_PROTOCOL.md`](docs/RESEARCH_PROTOCOL.md).
+These follow-up checks were merged with v0.2. The original v0.2 results above are preserved. The analyses use the same source corpus and fixed TF-IDF/logistic-regression configuration where applicable; outputs and exact methods are in [`results/v0.2/robustness/`](results/v0.2/robustness/) and [`docs/RESEARCH_PROTOCOL.md`](docs/RESEARCH_PROTOCOL.md).
 
 Across **30 predetermined author-disjoint splits** (seeds 1000–1029), mean F1 was **0.846** for baseline text (SD 0.024; median 0.848; 2.5th–97.5th split percentiles 0.806–0.882; min–max 0.768–0.897) and **0.805** after cue ablation (SD 0.026; median 0.805; percentiles 0.761–0.844; min–max 0.723–0.858). Mean ROC-AUC was 0.954 (SD 0.014; median 0.956; percentiles 0.923–0.970; min–max 0.906–0.972) for baseline and 0.936 (SD 0.015; median 0.938; percentiles 0.903–0.955; min–max 0.886–0.957) for ablation. These are empirical distributions over 30 splits, not confidence intervals.
 
@@ -140,11 +140,16 @@ The audit found a particularly important corpus artifact: all labeled nonlucid r
 
 The higher language-model results persist across repeated splits and author caps, but the structural control is above chance and forum categories strongly encode the assigned class. This supports reproducibility of text-based label discrimination in this corpus, **not** validated computational markers of lucid-dream phenomenology.
 
+## v0.3 — Phenomenology annotation study
+
+v0.2 showed robust label discrimination in one forum corpus. v0.3 does **not** assume those lexical signals are phenomenological markers; it builds a human-validated dimensional annotation study to test whether awareness/lucidity, agency, control, metacognition, waking-memory access, sensory richness, emotion, and stability can be distinguished. The configured study samples 600 reports (300 lucid, 300 nonlucid), caps authors at two reports, keeps author groups disjoint across labels, approximately matches report length, and selects a 120-report double-annotated pilot. The sample and dream-text annotation packets are generated locally under ignored `data/processed/v0.3/`; only schemas, protocols, and code are tracked. No human annotations, agreement estimates, or hypothesis tests have been produced. See [`docs/ANNOTATION_PROTOCOL_V0.3.md`](docs/ANNOTATION_PROTOCOL_V0.3.md) and [`docs/PHENOMENOLOGY_RUBRIC.md`](docs/PHENOMENOLOGY_RUBRIC.md).
+
 ## Research status
 
 - **Produced in v0.2:** corpus summary, author-disjoint TF-IDF baseline, lexical-cue ablation, author-cluster bootstrap intervals, length-matched sensitivity analysis, and coefficient inspection.
 - **Robustness analyses:** repeated author-disjoint splits, equal-author-weighted metrics, ten-report author cap sensitivity, duplicate audit, structural negative control, and stricter author-ID requirement.
-- **Still planned:** user-balanced and label-definition sensitivity checks, human-annotated phenomenology, and external laboratory validation.
+- **v0.3 framework:** annotation rubric, reproducible local sample, 120-report double-annotation pilot design, and agreement-analysis code are ready; no annotations or reliability results exist yet.
+- **Still planned:** human annotation and rubric refinement, then later external laboratory validation.
 - **Validated findings:** none are claimed. These baseline associations are not causal, clinically useful, or independently validated.
 
 ## Roadmap

@@ -1,0 +1,15 @@
+seed: 303
+pilot_seed: 30303
+data_path: data/raw/dreamviews-posts.tsv
+output_dir: data/processed/v0.3
+text_column_candidates: [post_text, content, text, post, body, dream]
+label_column_candidates: [lucidity, label, type, category, dream_type]
+author_column_candidates: [user_id, username, author, user]
+positive_labels: [lucid, lucid dream, ld]
+negative_labels: [nonlucid, non-lucid, normal dream, dream]
+reports_per_class: 300
+pilot_reports_per_class: 60
+max_reports_per_author: 2
+length_strata: 5
+near_duplicate_jaccard: 0.85
+duplicate_shingle_size: 5
