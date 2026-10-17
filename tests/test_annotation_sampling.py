@@ -94,6 +94,9 @@ def test_sample_has_paired_pilot_and_balanced_full_sample():
         "lucid": 8,
         "nonlucid": 8,
     }
+    pilot_source_authors = frame.iloc[pilot["source_row_index"]]["user_id"]
+    assert pilot_source_authors.value_counts().max() <= 2
+    assert generated["summary"]["pilot_maximum_reports_per_author"] <= 2
     pilot_paired = pilot.loc[pilot["sampling_component"] == "paired_mixed_label"]
     pilot_authors = frame.iloc[pilot_paired["source_row_index"]]["user_id"]
     pilot_pairs = pd.DataFrame(

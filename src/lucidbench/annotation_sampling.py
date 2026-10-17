@@ -480,6 +480,7 @@ def _sample_summary(
     sample["__author"] = source_authors.to_numpy()
     author_report_counts = source_authors.value_counts()
     pilot = sample.loc[sample["pilot_double_annotate"]]
+    pilot_author_report_counts = pilot["author_cluster_id"].value_counts()
     pilot_paired = pilot.loc[
         pilot["sampling_component"] == "paired_mixed_label"
     ]
@@ -594,6 +595,14 @@ def _sample_summary(
         "mixed_label_authors_selected": paired_author_target,
         "reports_excluded_for_detected_cross_author_duplicates": excluded_duplicate_count,
         "pilot_size": len(pilot),
+        "pilot_n_unique_authors": int(pilot["author_cluster_id"].nunique()),
+        "pilot_maximum_reports_per_author": int(pilot_author_report_counts.max()),
+        "pilot_authors_by_sampled_report_count": {
+            str(key): int(value)
+            for key, value in pilot_author_report_counts.value_counts()
+            .sort_index()
+            .items()
+        },
         "pilot_requested_per_class": requested_pilot_per_class,
         "pilot_paired_author_target": pilot_paired_author_target,
         "pilot_annotator_template_rows": 2 * len(pilot),

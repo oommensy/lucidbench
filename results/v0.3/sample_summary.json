@@ -54,6 +54,12 @@
   "mixed_label_authors_selected": 150,
   "reports_excluded_for_detected_cross_author_duplicates": 34,
   "pilot_size": 120,
+  "pilot_n_unique_authors": 88,
+  "pilot_maximum_reports_per_author": 2,
+  "pilot_authors_by_sampled_report_count": {
+    "1": 56,
+    "2": 32
+  },
   "pilot_requested_per_class": 60,
   "pilot_paired_author_target": 30,
   "pilot_annotator_template_rows": 240,
