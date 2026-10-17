@@ -247,6 +247,12 @@ def sample_annotation_reports(
         annotator_rng = np.random.default_rng(int(config["pilot_seed"]) + index)
         order = annotator_rng.permutation(len(pilot_packet))
         pilot_packets[annotator_id] = pilot_packet.iloc[order].reset_index(drop=True)
+    annotation_templates = {
+        annotator_id: _annotation_template(
+            packet["report_id"].tolist(), [annotator_id]
+        )
+        for annotator_id, packet in pilot_packets.items()
+    }
 
     sample_summary = _sample_summary(
         manifest,
@@ -269,6 +275,7 @@ def sample_annotation_reports(
         {
             "summary": sample_summary,
             "pilot_template": pilot_template,
+            "annotation_templates": annotation_templates,
             "packet": packet,
             "pilot_packets": pilot_packets,
             "bin_edges": [float(value) for value in bin_edges],
@@ -678,6 +685,10 @@ def create_annotation_sample(
     sample["packet"].to_csv(output / "local_report_packet.csv", index=False)
     for annotator_id, packet in sample["pilot_packets"].items():
         packet.to_csv(output / f"{annotator_id}_pilot_packet.csv", index=False)
+    for annotator_id, template in sample["annotation_templates"].items():
+        template.to_csv(
+            output / f"{annotator_id}_annotation_template.csv", index=False
+        )
     (output / "sample_summary.json").write_text(
         json.dumps(sample["summary"], indent=2, allow_nan=False) + "\n",
         encoding="utf-8",

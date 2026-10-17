@@ -2,6 +2,7 @@ import pandas as pd
 import pytest
 
 from lucidbench.annotation_sampling import sample_annotation_reports
+from lucidbench.annotation_schema import ANNOTATION_COLUMNS
 
 
 def _sample_config():
@@ -137,6 +138,7 @@ def _assert_annotator_files_blinded(generated, source_frame):
         generated["packet"],
         generated["pilot_template"],
         *generated["pilot_packets"].values(),
+        *generated["annotation_templates"].values(),
     ]
     for file in files:
         assert forbidden_columns.isdisjoint(file.columns)
@@ -150,6 +152,17 @@ def _assert_annotator_files_blinded(generated, source_frame):
         list(packet.columns) == ["report_id", "dream_text"]
         for packet in generated["pilot_packets"].values()
     )
+    first_packet = generated["pilot_packets"]["annotator_1"]
+    second_packet = generated["pilot_packets"]["annotator_2"]
+    first_ids = first_packet["report_id"].tolist()
+    second_ids = second_packet["report_id"].tolist()
+    assert set(first_ids) == set(second_ids)
+    assert first_ids != second_ids
+    for annotator_id, packet in generated["pilot_packets"].items():
+        template = generated["annotation_templates"][annotator_id]
+        assert template.columns.tolist() == list(ANNOTATION_COLUMNS)
+        assert template["report_id"].tolist() == packet["report_id"].tolist()
+        assert template["annotator_id"].eq(annotator_id).all()
     assert generated["summary"]["source_labels_in_annotator_files"] is False
     assert generated["summary"]["author_identities_in_annotator_files"] is False
     assert generated["summary"]["pairing_information_in_annotator_files"] is False
