@@ -9,6 +9,8 @@ positive_labels: [lucid, lucid dream, ld]
 negative_labels: [nonlucid, non-lucid, normal dream, dream]
 reports_per_class: 300
 pilot_reports_per_class: 60
+paired_authors: 150
+pilot_paired_authors: 30
 max_reports_per_author: 2
 length_strata: 5
 near_duplicate_jaccard: 0.85
