@@ -61,7 +61,7 @@ python -m pytest
 
 ## Methodology
 
-**Dreamer/author-disjoint splitting is required for LucidBench's main experiments.** All reports from an identified dreamer must remain on one side of a train/test split, preventing the model from benefiting from the same person's writing style in both sets. The v0.2 experiment now fails if author IDs are missing or incomplete. Exploratory report-level splitting requires the explicit `--allow-report-level-split` option and is labeled leakage-sensitive.
+**Dreamer/author-disjoint splitting is required for LucidBench's predictive experiments.** All reports from an identified dreamer must remain on one side of a train/test split, preventing the model from benefiting from the same person's writing style in both sets. The v0.2 experiment now fails if author IDs are missing or incomplete. Exploratory report-level splitting requires the explicit `--allow-report-level-split` option and is labeled leakage-sensitive. The v0.3 phenomenology annotation sample intentionally retains some mixed-label authors for paired within-author analyses; these are analyzed separately from independent between-author comparisons.
 
 Future analyses include:
 
@@ -96,7 +96,7 @@ lucidbench/
 ├── data/                 # ignored raw/processed datasets
 ├── docs/                 # research protocol, rubric, literature notes
 ├── notebooks/            # exploratory notebook guidance
-├── results/              # committed aggregate v0.2 results; other outputs ignored
+├── results/              # committed aggregate v0.2/v0.3 summaries; private outputs ignored
 ├── scripts/              # data utilities
 ├── src/lucidbench/       # reusable package
 └── tests/                # unit tests
@@ -124,7 +124,7 @@ These are initial results from one fixed author-disjoint split, not independent 
 
 ## v0.2.1 robustness analyses
 
-These follow-up checks were added to the open, unmerged v0.2 PR. The original v0.2 results above are preserved. The analyses use the same source corpus and fixed TF-IDF/logistic-regression configuration where applicable; outputs and exact methods are in [`results/v0.2/robustness/`](results/v0.2/robustness/) and [`docs/RESEARCH_PROTOCOL.md`](docs/RESEARCH_PROTOCOL.md).
+These follow-up checks were merged with v0.2. The original v0.2 results above are preserved. The analyses use the same source corpus and fixed TF-IDF/logistic-regression configuration where applicable; outputs and exact methods are in [`results/v0.2/robustness/`](results/v0.2/robustness/) and [`docs/RESEARCH_PROTOCOL.md`](docs/RESEARCH_PROTOCOL.md).
 
 Across **30 predetermined author-disjoint splits** (seeds 1000–1029), mean F1 was **0.846** for baseline text (SD 0.024; median 0.848; 2.5th–97.5th split percentiles 0.806–0.882; min–max 0.768–0.897) and **0.805** after cue ablation (SD 0.026; median 0.805; percentiles 0.761–0.844; min–max 0.723–0.858). Mean ROC-AUC was 0.954 (SD 0.014; median 0.956; percentiles 0.923–0.970; min–max 0.906–0.972) for baseline and 0.936 (SD 0.015; median 0.938; percentiles 0.903–0.955; min–max 0.886–0.957) for ablation. These are empirical distributions over 30 splits, not confidence intervals.
 
@@ -140,11 +140,18 @@ The audit found a particularly important corpus artifact: all labeled nonlucid r
 
 The higher language-model results persist across repeated splits and author caps, but the structural control is above chance and forum categories strongly encode the assigned class. This supports reproducibility of text-based label discrimination in this corpus, **not** validated computational markers of lucid-dream phenomenology.
 
+## v0.3 — Phenomenology annotation study
+
+v0.2 showed robust label discrimination in one forum corpus. v0.3 does **not** assume those lexical signals are phenomenological markers; it builds a human-validated dimensional annotation study to test whether awareness/lucidity, agency, control, metacognition, waking-memory access, sensory richness, emotion, and stability can be distinguished. The configured 600-report sample contains 150 mixed-label authors with one lucid and one nonlucid report each, plus 150 independently sampled reports per label from other, label-exclusive authors. The author cap is two. The 120-report double-annotated pilot contains 30 such pairs (60 reports) and 30 independent reports per label (60 reports), for 60 lucid and 60 nonlucid reports overall. Report lengths are approximately matched, and detected cross-author duplicates/near-duplicates are excluded. The paired within-author analysis is intended to reduce person-specific writing-style and reporting confounds; it complements, rather than replaces, between-author and overall author-clustered analyses.
+
+The sample and dream-text annotation packets are generated locally under ignored `data/processed/v0.3/`; annotator-facing files do not contain corpus labels, author identities, or pairing indicators. A non-identifying aggregate summary is tracked in [`results/v0.3/sample_summary.json`](results/v0.3/sample_summary.json); the local manifest alone contains opaque author-cluster and pair keys for later analysis. No human annotations, agreement estimates, or hypothesis tests have been produced. See [`docs/ANNOTATION_PROTOCOL_V0.3.md`](docs/ANNOTATION_PROTOCOL_V0.3.md) and [`docs/PHENOMENOLOGY_RUBRIC.md`](docs/PHENOMENOLOGY_RUBRIC.md).
+
 ## Research status
 
 - **Produced in v0.2:** corpus summary, author-disjoint TF-IDF baseline, lexical-cue ablation, author-cluster bootstrap intervals, length-matched sensitivity analysis, and coefficient inspection.
 - **Robustness analyses:** repeated author-disjoint splits, equal-author-weighted metrics, ten-report author cap sensitivity, duplicate audit, structural negative control, and stricter author-ID requirement.
-- **Still planned:** user-balanced and label-definition sensitivity checks, human-annotated phenomenology, and external laboratory validation.
+- **v0.3 framework:** annotation rubric, reproducible local sample, 120-report double-annotation pilot design, and agreement-analysis code are ready; no annotations or reliability results exist yet.
+- **Still planned:** human annotation and rubric refinement, then later external laboratory validation.
 - **Validated findings:** none are claimed. These baseline associations are not causal, clinically useful, or independently validated.
 
 ## Roadmap
