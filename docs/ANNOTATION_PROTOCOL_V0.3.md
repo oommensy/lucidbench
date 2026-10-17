@@ -37,6 +37,22 @@ No author identities or row-level identifiers are exported in the aggregate summ
 
 ## Annotation procedure
 
+### Local terminal helper
+
+After generating the blinded pilot packet and annotator-specific template, Annotator 1 can start the human-only local workflow with:
+
+```bash
+python -m scripts.annotate_pilot --annotator annotator_1
+```
+
+The helper reads only `annotator_1_pilot_packet.csv` and `annotator_1_annotation_template.csv`; it does not access the sample manifest or linkage metadata. It displays the opaque report ID, report text, and brief rubric reminders, and does not infer or suggest scores. Accepted field values are autosaved to the ignored local file `data/processed/v0.3/annotator_1_annotations.csv`. On restart, it begins at the first report with any incomplete score. At a prompt, enter `next`, `previous`, `save`, `quit`, `rubric`, or `progress`; `quit` saves before exit. To check completion without opening reports, run:
+
+```bash
+python -m scripts.annotate_pilot --annotator annotator_1 --check
+```
+
+The check reports completion counts, missing score fields, duplicate opaque report IDs, and schema-validation status. Notes are optional short paraphrases only; do not copy report text or add identifying details. The helper is a human annotation interface only and does not calculate inter-rater agreement.
+
 1. Two independent annotators receive separately shuffled pilot packets with the same 120 report texts and opaque IDs. They work independently and do not see each other's ratings, corpus labels, author identities, or which reports are paired.
 2. Annotate every rubric field in `docs/PHENOMENOLOGY_RUBRIC.md`. Leave a field blank only when it is genuinely uninterpretable; explain ambiguity in notes without copying source text.
 3. Do not put dream text, direct quotations, author information, or other identifying details into notes. The generated CSVs are local and ignored; do not add completed ratings to Git.
