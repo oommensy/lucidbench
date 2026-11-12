@@ -1,187 +1,263 @@
-# LucidBench v0.3 Phenomenology Annotation Rubric
+# LucidBench v0.3.1 Phenomenology and Lucidity-Transition Annotation Rubric
 
 ## Purpose and unit
 
-Annotate evidence explicitly present in one report, not what an event implies in waking life or what an annotator assumes the dreamer must have felt. The unit is a single report. Use the report's words as evidence and add a short, source-free rationale in `notes` (do not copy report text). Score each dimension independently.
+Annotate evidence explicitly present in one dream report. The unit is a single report. Do not infer an experience merely because it would be plausible, and distinguish in-dream cognition from the waking narrator's retrospective commentary.
 
-**Dream awareness/lucidity, agency, and dream control are distinct constructs.** Awareness means recognizing or questioning the dream state; agency means intentional action; control means deliberately altering the dream. A person can know they are dreaming but have no control, intentionally act without knowing they are dreaming, or alter something without sustained agency.
+This revision was motivated by expert feedback and by crosswalking the original LucidBench rubric against established dream/lucidity measures: LuCiD (Voss et al., 2013), DLQ (Stumbrys, Erlacher, & Schredl, 2013), MACE-related work (Kahan et al., 1997), LUSK (Schredl, Rieger, & Göritz, 2018), and the multidimensional LDCQ framework (Peters, Erlacher, & Bonamino).
 
-The short quotations below are synthetic examples written for this rubric; none are copied from the dataset.
+The key design principle is that **lucid insight, intentional agency, metacognitive processing, and dream control are related but distinct constructs**.
 
-## General coding conventions
+## Evidence convention
 
-- Score only what the report supports. Do not infer awareness from bizarre events, control from flying, or waking-memory access from a familiar person appearing.
-- Distinguish in-dream experience from the waking narrator's retrospective commentary.
-- When evidence is absent, use the dimension's 0 code; absence of description is not proof that the experience could not have occurred.
-- If the report is genuinely impossible to interpret for a field, leave that field blank and explain the ambiguity in `notes`; do not invent an “unknown” score.
-- Add a brief paraphrased rationale for nonzero or ambiguous scores, without copying source text into annotation notes.
-- Review the full report; do not use corpus `lucidity`, `categories`, `tags`, author ID, or filename to infer a phenomenology score.
+For most binary and ordinal fields, a zero means **not evidenced in the narrative**, not proof that the experience was absent. Narrative dream reports can omit cognitive events that occurred. Leave a field blank only when the text is genuinely uninterpretable for that field.
 
-## A. Dream awareness / lucidity
+Do not use corpus labels, tags, categories, filenames, author identity, or sampling component to infer a score.
 
-**Question:** Does the dreamer, during the reported experience, recognize or question whether they are dreaming?
+## A. Lucid insight
 
-| Score | Definition |
-|---|---|
-| 0 | No awareness or questioning of dreaming is evidenced. |
-| 1 | Possible/questioning awareness, such as testing whether the experience is a dream without reaching a clear conclusion. |
-| 2 | Explicit in-dream awareness that the current experience is a dream. |
+**Field:** `lucid_insight`
 
-**Synthetic examples**
+**Question:** To what extent does the dreamer recognize the current experience as a dream while it is happening?
 
-- 0: “I crossed a bridge while the storm followed me.”
-- 1: “I checked the clock twice because I wondered whether this could be a dream.”
-- 2: “While it was happening, I knew I was dreaming.”
+- **0 — not evidenced:** no in-dream recognition or questioning of dream state.
+- **1 — questioning/partial:** the dreamer suspects, questions, or tests whether the experience is a dream without clear explicit recognition.
+- **2 — explicit insight:** the dreamer explicitly recognizes that the current experience is a dream.
 
-**Edge cases:** “It was a dream” in a waking introduction or conclusion is retrospective and scores 0 unless in-dream recognition is also stated. Impossible physics alone is not awareness. A reality check without any indication of questioning or recognition is at most 1. Uncertainty after a reality check is 1, not 2.
+Lucid insight is not the same as control. A report can score 2 here and show no control.
 
-## B. Agency
+## B. Intentional agency
 
-**Question:** Does the dreamer intentionally choose and carry out actions?
+**Field:** `intentional_agency`
 
-| Score | Definition |
-|---|---|
-| 0 | Events mostly happen to the dreamer; no intentional choice is evidenced. |
-| 1 | One or more intentional choices/actions are present, but behavior is brief, reactive, or not sustained toward a goal. |
-| 2 | Sustained intentional, goal-directed behavior: the dreamer pursues or adapts actions toward an expressed goal. |
+**Question:** Does the dreamer intentionally initiate and pursue actions?
 
-**Synthetic examples**
+- **0:** intentional choice/action not evidenced.
+- **1:** one or more deliberate but brief/reactive actions.
+- **2:** sustained goal-directed behavior, planning, or adaptation toward a goal.
 
-- 0: “The crowd carried me into the station.”
-- 1: “I chose the blue door and opened it.”
-- 2: “I decided to find my sister, asked several people for directions, and changed route when the first path was blocked.”
+Agency concerns initiation and choice, not whether dream content obeys the dreamer.
 
-**Edge cases:** Movement or first-person narration alone does not establish intention. Attempted action may show agency even if it fails. Control is not required for agency. A single deliberate act is generally 1, not 2, unless the report supports sustained goal pursuit.
+## C. Metacognitive and reflective processes
 
-## C. Dream control
+### Internal commentary
 
-**Question:** Does the dreamer deliberately attempt to alter dream content, body, environment, characters, or events?
+**Field:** `internal_commentary` — 0/1
 
-| Score | Definition |
-|---|---|
-| 0 | No deliberate alteration of dream content is evidenced. |
-| 1 | An alteration is deliberately attempted or partially achieved, but is limited, uncertain, or unsuccessful. |
-| 2 | A deliberate alteration is clearly successful. |
+Code 1 when the dreamer wonders about, comments internally on, or explicitly evaluates an event while dreaming.
 
-**Synthetic examples**
+### Self-reflection
 
-- 0: “I was flying over the city,” with no indication the flight was chosen or changed.
-- 1: “I tried to make the room brighter, but it only changed a little.”
-- 2: “I decided to open a door onto a beach, and the hallway became a beach.”
+**Field:** `self_reflection` — 0/1
 
-**Edge cases:** Accidental or unexplained changes are not control. Flying, unusual strength, or dream transitions alone do not count. Control can occur without lucidity; lucidity can occur without control. Score the attempt when success is unclear (1).
+Code 1 when the dreamer reflects on their own thoughts, feelings, motives, behavior, or mental condition.
 
-## D. Metacognition
+### State reasoning
 
-**Question:** Does the dreamer monitor or reason about their own mental state, dream state, perception, or the consequences of an experience?
+**Field:** `state_reasoning`
 
-| Score | Definition |
-|---|---|
-| 0 | No reflection on the dreamer's mental/dream state or reasoning about it. |
-| 1 | Limited reflection or monitoring, such as brief doubt, checking, or noticing one's thought/feeling. |
-| 2 | Explicit reasoning about the dream, mental state, perception, or consequences. |
+**Question:** Does the dreamer reason about the nature of their current state or its relation to waking reality?
 
-**Synthetic examples**
+- **0:** not evidenced.
+- **1:** limited state-related doubt, checking, or inference.
+- **2:** explicit or sustained reasoning about whether/how the present experience is a dream or waking reality.
 
-- 0: “The room filled with water.”
-- 1: “I paused to check whether I was remembering this correctly.”
-- 2: “I reasoned that the clock changed because the scene was a dream, so I tested the doorway before deciding what to do.”
+A dreamer may show internal commentary or self-reflection without achieving lucid insight. This distinction is central to the v0.3.1 transition analysis.
 
-**Edge cases:** A statement of awareness without any reflection beyond recognition can score awareness 2 and metacognition 1; score separately. Retrospective waking analysis is not in-dream metacognition. A reality check may be metacognition 1 even when awareness remains uncertain.
+## D. Waking-memory access
 
-## E. Waking-memory access
+### Waking memory
 
-**Question:** Does the dreamer retrieve information, intentions, plans, or memories from waking life during the dream?
+**Field:** `waking_memory`
 
-| Score | Definition |
-|---|---|
-| 0 | No waking-life reference or retrieval is evidenced. |
-| 1 | Vague waking-life reference, with unclear retrieval or influence on the dream. |
-| 2 | Explicit retrieval of waking intentions, facts, plans, or memories while dreaming. |
+- **0:** waking-life retrieval not evidenced.
+- **1:** vague or uncertain reference to waking-life knowledge.
+- **2:** explicit retrieval of a waking fact, episode, identity, or contextual fact during the dream.
 
-**Synthetic examples**
+### Prospective intention memory
 
-- 0: “I met someone who looked familiar,” with no waking-life identification.
-- 1: “The place seemed like somewhere I knew from outside the dream.”
-- 2: “I remembered my waking plan to call my brother and tried to do it in the dream.”
+**Field:** `prospective_intention_memory` — 0/1
 
-**Edge cases:** A known person appearing does not itself show memory retrieval. A report that says “I remembered” after waking is not in-dream retrieval. Score the evidence of access, not whether the recalled fact is accurate.
+Code 1 when the dreamer explicitly remembers an intention, task, plan, or instruction formed before sleep or while awake and uses or considers it during the dream.
 
-## F. Sensory richness
+A familiar person appearing is not sufficient evidence of waking-memory retrieval.
 
-Score each modality **0 = not described/present in the report, 1 = described/present**. These are binary indicators, not intensity scores.
+## E. Transition-to-lucidity sequence
 
-| Field | Modality | Positive evidence examples (synthetic) |
-|---|---|---|
-| `sensory_visual` | Visual | Colors, brightness, shapes, seeing a scene or object. |
-| `sensory_auditory` | Auditory | Hearing speech, music, a sound, or silence explicitly experienced. |
-| `sensory_tactile` | Tactile | Feeling texture, pressure, temperature, pain, or touch. |
-| `sensory_proprioceptive` | Proprioceptive/vestibular | Feeling body position, movement, balance, falling, spinning, or motion. |
-| `sensory_smell_taste` | Smell/taste | Smelling an odor or tasting food/flavor. |
+These fields capture the pathway into lucidity or a failed/near-lucid transition. Do not force every report into a transition narrative.
 
-**Synthetic examples:** “A red sign glowed” supports visual; “a bell rang” supports auditory; “the stone felt cold” supports tactile; “I tilted and spun” supports proprioceptive/vestibular; “the tea tasted bitter” supports smell/taste.
+### Anomaly present
 
-Derive `sensory_count` as the sum of the five indicators; do not annotate it separately.
+**Field:** `anomaly_present` — 0/1
 
-**Edge cases:** Do not infer a modality merely because an object could normally be sensed. “I ate” without a stated taste supports no smell/taste indicator. “I flew” supports proprioceptive/vestibular only if movement or bodily sensation is described; annotate consistently and note borderline decisions. Textual visual imagery in the waking retelling counts as report evidence even if the dreamer's lucidity is absent.
+Code 1 when the report contains an event, setting, object, bodily state, causal relation, or physical property that is explicitly bizarre, impossible, inconsistent, or markedly unlike waking reality.
 
-## G. Emotional intensity and valence
+### Anomaly noticed
+
+**Field:** `anomaly_noticed` — 0/1
+
+Code 1 only when the dreamer notices or reacts to an anomaly as unusual. An anomaly can be present without being noticed.
+
+### Reality testing
+
+**Field:** `reality_testing` — 0/1
+
+Code 1 for a deliberate test or check aimed at determining whether the current experience is a dream or waking reality.
+
+### Dream rationalization
+
+**Field:** `dream_rationalization` — 0/1
+
+Code 1 when the dreamer notices or reasons about something anomalous but adopts an explanation that preserves the dream as ordinary/real rather than reaching lucid insight.
+
+This field is intended to capture the "near-miss" pattern discussed in the expert consultation: anomaly noticed → reasoning → dream-consistent explanation → continued non-lucidity.
+
+### Route to lucidity
+
+**Field:** `route_to_lucidity`
+
+Choose one:
+
+- `none`: no lucid transition evidenced.
+- `reasoning_based`: lucid insight follows identifiable questioning, anomaly appraisal, reality testing, or reasoning.
+- `spontaneous_intuitive`: the dreamer reports simply/abruptly knowing it is a dream without an identifiable reasoning sequence.
+- `wake_initiated`: awareness appears continuous from wakefulness or sleep onset into the dream.
+- `other_unclear`: lucid insight occurs but the route cannot be categorized reliably.
+
+### Transition outcome
+
+**Field:** `transition_outcome`
+
+Choose one:
+
+- `no_transition`: no meaningful movement toward lucid insight is evidenced.
+- `near_lucid`: questioning/reasoning toward dream-state recognition occurs but explicit lucid insight is not reached.
+- `lucid`: explicit lucid insight occurs.
+- `unclear`: the transition cannot be reliably classified from the narrative.
+
+The outcome is an annotation of the reported cognitive sequence, not a replacement for the corpus label.
+
+## F. Dream control
+
+Control is separated into **attempt**, **success**, and **domain** so that failed attempts and different kinds of control are not collapsed into one score.
+
+### Control attempt
+
+**Field:** `control_attempt` — 0/1
+
+Code 1 when the dreamer deliberately attempts to influence the dream state, dream self, dream content, characters, environment, or physical rules.
+
+### Control success
+
+**Field:** `control_success`
+
+- `not_applicable`: no deliberate control attempt is evidenced.
+- `failed`: a deliberate attempt clearly fails.
+- `partial_uncertain`: partial, inconsistent, or ambiguous success.
+- `successful`: the intended alteration is clearly achieved.
+
+### Control domain
+
+**Field:** `control_domain`
+
+Use the dominant domain, or `multiple` when several are clearly present:
+
+- `none`
+- `cognition`: maintaining lucidity/focus, prolonging the dream, regaining cognitive control.
+- `emotion`: deliberately regulating or changing emotional state.
+- `body`: deliberately changing the form or sensory properties of the dream body.
+- `movement`: deliberately controlling or executing movement/action.
+- `characters`: summoning, removing, changing, or deliberately influencing dream characters.
+- `environment`: changing locations, objects, lighting, weather, or surroundings.
+- `physics`: changing gravity, time, solidity, spatial rules, or other physical constraints.
+- `multiple`
+
+This domain structure is adapted at a coarse level from the LDCQ framework; LucidBench does not claim that narrative annotation reproduces LDCQ questionnaire scores.
+
+## G. Sensory evidence
+
+Binary fields:
+
+- `sensory_visual`
+- `sensory_auditory`
+- `sensory_tactile`
+- `sensory_proprioceptive`
+- `sensory_smell_taste`
+
+Use **1** only when the corresponding sensory content is described; otherwise use **0 = not evidenced**. Do not infer taste merely from eating or proprioception merely from a verb of movement unless bodily motion/position is actually described.
+
+A derived `sensory_count` may be calculated later; it is not manually annotated.
+
+## H. Emotion
 
 ### Emotional intensity
 
-| Score | Definition |
-|---|---|
-| 0 | No emotion described or only minimal affect. |
-| 1 | Mild/moderate emotion is described or clearly expressed. |
-| 2 | Strong/intense emotion is explicitly described. |
+**Field:** `emotional_intensity`
 
-**Synthetic examples:** 0: neutral description without affect; 1: “I felt a little uneasy”; 2: “I was overwhelmed with terror.”
-
-**Edge cases:** Do not infer fear from a threatening event without a reported emotional response. Several mild emotions do not automatically make intensity 2. Score the strongest supported feeling, not the number of feelings.
+- **0:** no/minimal emotion evidenced.
+- **1:** mild or moderate emotion.
+- **2:** strong/intense emotion.
 
 ### Emotional valence
 
-Choose exactly one:
+**Field:** `emotional_valence`
 
-- `negative`: negative affect predominates;
-- `neutral_mixed`: no clear affect, mixed affect, or neutral report;
-- `positive`: positive affect predominates.
+- `negative`
+- `neutral_mixed`
+- `positive`
 
-**Synthetic examples:** `negative`: sustained dread; `neutral_mixed`: curiosity with some uncertainty, or no clear emotion; `positive`: sustained joy or relief.
+Intensity and valence are independent.
 
-**Edge cases:** Use `neutral_mixed` when positive and negative emotions are comparably salient. Valence is independent of intensity: strong positive emotion is intensity 2/positive; weak negative emotion is intensity 1/negative.
+## I. Stability and termination
 
-## H. Dream stability
+### Dream instability
 
-**Question:** Does the report describe instability, fading, awakening, or termination, and is termination linked to awareness/control?
+**Field:** `dream_instability`
 
-| Score | Definition |
-|---|---|
-| 0 | No fading/instability/termination is reported, or the report explicitly describes continuation/stability. |
-| 1 | Fading, instability, scene collapse, or threatened termination is mentioned without clear awakening/termination linked to awareness/control. |
-| 2 | Awakening or dream termination is explicitly associated with awareness or deliberate control. |
+- **0:** fading/instability not evidenced or report explicitly remains stable.
+- **1:** threatened/limited instability, fading, blurring, or difficulty maintaining the scene.
+- **2:** clear major destabilization or scene collapse.
 
-**Synthetic examples**
+### Loss of lucidity
 
-- 0: “I continued exploring and the report ends without a transition.”
-- 1: “The room began to blur while I was looking around.”
-- 2: “After I realized I was dreaming and tried to change the scene, I woke up.”
+**Field:** `loss_of_lucidity` — 0/1
 
-**Edge cases:** The end of a written report is not evidence that the dream ended. Waking at the end without a stated relation to awareness/control scores at most 1 if awakening is explicit. Do not infer causal association from sequence alone unless the report connects the events; annotate the stated relation.
+Code 1 only when the report explicitly indicates a transition from lucid awareness back to non-lucid dreaming.
 
-## I. Annotation confidence
+### Awakening
 
-| Value | Definition |
-|---|---|
-| `low` | Evidence is sparse, ambiguous, or difficult to apply consistently. |
-| `medium` | Evidence supports the scores, but one or more meaningful alternatives remain. |
-| `high` | The report explicitly and unambiguously supports the scores. |
+**Field:** `awakening` — 0/1
 
-Confidence is an annotator judgment about evidence and coding clarity, not confidence that the reported dream objectively occurred as described.
+Code 1 when waking from the dream is explicitly reported. Do not infer awakening from the end of the written report.
 
-## Independence reminders
+These fields are intentionally separate: vividness, stability, loss of lucidity, and awakening need not covary.
 
-- High awareness can coexist with low control or low agency.
-- Agency can be high without awareness; a dreamer may pursue goals without knowing they are dreaming.
-- Control requires deliberate alteration; successful control is not implied by unusual events.
-- Metacognition, memory access, sensory richness, emotion, and stability must be scored independently of the corpus label.
+## J. Confidence and notes
+
+### Confidence
+
+- `low`: sparse or ambiguous evidence.
+- `medium`: reasonable coding with meaningful alternatives.
+- `high`: explicit and unambiguous evidence.
+
+### Notes
+
+Optional, ≤300 characters. Use a short paraphrase only. Do not copy report text, corpus metadata, or identifying details.
+
+## Dependency rules
+
+- If `control_attempt = 0`, use `control_success = not_applicable` and `control_domain = none`.
+- If `control_attempt = 1`, do not use `not_applicable` or `none`.
+- Do not infer `anomaly_noticed` from `anomaly_present`.
+- Do not infer `lucid_insight` from control, flying, bizarre physics, or use of lucid-dream terminology in waking commentary.
+- Do not infer causal links between insight/control and awakening merely from temporal order.
+
+## Literature anchors
+
+- Kahan, T. L., LaBerge, S., Levitan, L., & Zimbardo, P. (1997). Similarities and differences between dreaming and waking cognition: An exploratory study. *Consciousness and Cognition, 6*, 132–147.
+- Stumbrys, T., Erlacher, D., & Schredl, M. (2013). Testing the involvement of the prefrontal cortex in lucid dreaming: A tDCS study. *Consciousness and Cognition, 22*, 1214–1222. Includes the DLQ and MACE-based measures used here as conceptual anchors.
+- Voss, U., Schermelleh-Engel, K., Windt, J., Frenzel, C., & Hobson, A. (2013). Measuring consciousness in dreams: The Lucidity and Consciousness in Dreams scale. *Consciousness and Cognition, 22*, 8–21.
+- Schredl, M., Rieger, J., & Göritz, A. S. (2018). Measuring lucid dreaming skills: A new questionnaire (LUSK). *International Journal of Dream Research, 11*(1).
+- Peters, E., Erlacher, D., & Bonamino, C. Lucid Dream Control Questionnaire (LDCQ): Development and Validation, manuscript consulted for the control-domain crosswalk.
+
+The rubric is a research operationalization for retrospective narrative reports. It is not a clinical instrument and does not claim equivalence to participant-completed questionnaires.
