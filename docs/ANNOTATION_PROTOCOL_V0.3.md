@@ -1,17 +1,39 @@
-# v0.3 Phenomenology Annotation Study Protocol
+# v0.3.1 Phenomenology and Lucidity-Transition Annotation Study Protocol
 
 ## Status and purpose
 
-This is a prospective protocol for coding an already-public dream-report corpus. The sample and blank templates may be created locally, but no human annotations or agreement statistics are included yet. Do not run the preregistered hypothesis tests until annotations are complete and the pilot rubric has been reviewed.
+This is a prospective protocol for coding an already-public dream-report corpus. The reproducible sample and blinding design were created in v0.3. The **v0.3.1 revision changes the annotation constructs, not the sample composition**.
 
-The scientific goal is to test whether awareness/lucidity, agency, control, metacognition, waking-memory access, sensory richness, emotion, and stability can be coded as distinct dimensions. In particular, **lucidity is not assumed to be equivalent to agency or control**.
+No human annotations or agreement statistics are committed. Do not run confirmatory analyses until both pilot annotators complete the revised schema and the rubric review decision is recorded.
+
+The scientific goals are:
+
+1. test whether lucid insight, intentional agency, state reasoning, waking-memory access, dream control, sensory experience, emotion, and stability can be coded as separable dimensions from narrative dream reports;
+2. test whether dream control can be represented more precisely as attempted control, success/failure, and domain;
+3. explore whether reports contain reproducible **transition-to-lucidity sequences**, especially the contrast between reasoning that culminates in lucid insight and reasoning that is rationalized without lucidity.
+
+Lucidity is not assumed to be equivalent to control, agency, or metacognition.
+
+## Conceptual grounding
+
+The v0.3.1 construct definitions were crosswalked against:
+
+- LuCiD: INSIGHT, CONTROL, THOUGHT, REALISM, MEMORY, DISSOCIATION, positive and negative emotion;
+- DLQ: awareness, control, waking remembrance and remembered intentions;
+- MACE-related work: choice, internal commentary, attention, and self-reflection;
+- LUSK: lucid-dream skill, awareness maintenance, control, waking memory and loss/termination problems;
+- LDCQ: multidimensional control over cognition, emotion, body, movement, characters, environment and physics.
+
+See `docs/V0.3_CONSTRUCT_CROSSWALK.md`.
 
 ## Source and eligibility
 
 - Source: Remington Mallett, *A large corpus of lucid and non-lucid dream reports*, Zenodo 10.5281/zenodo.19161757, CC BY-NC 4.0.
-- Use only the already-public corpus. Do not solicit or collect new dream reports, physiological data, or experimental observations in this study.
-- Binary sample strata are corpus labels `lucid` and `nonlucid`. Exclude `unspecified`, `ambiguous`, missing text, and missing author ID.
-- Do not show annotators corpus labels, categories, tags, author identity, or report metadata. Annotators receive an opaque `report_id` and report text only.
+- Use only the already-public corpus.
+- Binary sample strata are corpus labels `lucid` and `nonlucid`; exclude `unspecified`, `ambiguous`, missing text, and missing author ID.
+- Annotators must not see source labels, categories, tags, author identity, pair membership, or sampling component.
+
+The corpus label is a sampling variable and later comparison variable. It is **not** an annotation target and must not be used to infer `lucid_insight` or `transition_outcome`.
 
 ## Reproducible sample selection
 
@@ -21,110 +43,176 @@ Run:
 python -m scripts.create_annotation_sample --config configs/v0.3.yaml
 ```
 
-The fixed sampling seed is 303; the pilot seed is 30303. The configured full sample contains 150 mixed-label author pairs and 300 independently sampled reports; the pilot contains 30 mixed-label author pairs and 60 independently sampled reports. The sampling procedure:
+The sampling design remains unchanged from v0.3:
 
-1. Re-detect cross-author exact and near duplicates using the v0.2 audit's method (case-folded/whitespace-normalized exact matching; approximate 5-token-shingle SimHash/LSH candidates verified at Jaccard >= 0.85). Exclude every report involved in a detected cross-author pair. Near-duplicate discovery is approximate, not exhaustive.
-2. Retain eligible authors with reports in both label strata for a paired component. For each selected mixed-label author, select exactly one lucid and one nonlucid report; when an author has multiple candidates in either stratum, choose the pair with the closest word counts, breaking ties with the fixed seed.
-3. Select 150 mixed-label authors for the 600-report sample (150 reports of each label). Select the remaining 150 reports per label independently from label-exclusive authors, never reusing a paired-component author. Enforce the configured maximum of two reports per author across the complete sample.
-4. Select the pilot as a subset of the main sample: 30 of the paired authors contribute their full lucid/nonlucid pair (60 reports), and 30 additional reports per label come from the independently sampled component (60 reports). The pilot therefore has exactly 60 lucid and 60 nonlucid reports, and all 120 are double-coded.
-5. Balance pair mean length and independent-report length across five quantile strata where feasible. Pair selection minimizes the within-author word-count difference; overall label-level length balance is approximate and reported in the aggregate sample summary.
-6. Selection is deterministic for the configured seeds. If the configured paired-author target, class totals, or author cap are infeasible after duplicate exclusion, sampling fails with an error; do not silently reduce the number of pairs or relax the cap.
-7. Assign opaque `LB03-####` annotation IDs. The ignored local manifest records reconstruction fields (row index, source report ID, text SHA-256, corpus label, word count, length stratum, pilot flag), plus opaque local-only `author_cluster_id`, `paired_author_id`, and `sampling_component` fields. The identifiers are not author identities and must not be copied into tracked files. The manifest does not contain dream text.
+- seed 303; pilot seed 30303;
+- 600 reports total: 300 corpus-labeled lucid and 300 corpus-labeled nonlucid;
+- 150 mixed-label authors contribute one report from each label stratum (300 paired-component reports);
+- 300 reports come from label-exclusive authors (150 per label);
+- maximum two reports per author;
+- 120-report pilot: 30 mixed-label author pairs (60 reports) plus 60 independent reports (30 per label);
+- all 120 pilot reports are independently double-coded;
+- report length is approximately balanced and mixed-label pairs are chosen to minimize within-pair length difference;
+- detected cross-author exact/near duplicates are excluded using the v0.2 audit method;
+- opaque `LB03-####` report IDs are used in annotator-facing files.
 
-Generated files go under ignored `data/processed/v0.3/`: `sample_manifest.csv`, a blank 600-row `annotation_template.csv`, a 240-row pilot template with one row per pilot report per annotator, blinded local report packets, and aggregate `sample_summary.json`. Annotator-facing files contain only opaque report IDs, dream text (in packets), annotator IDs, and annotation fields; they omit source labels, author/cluster IDs, and all pairing/component indicators. The report text itself may contain clues, but the sampling process does not disclose its corpus metadata or pairing. The local packet files contain source dream text and must never be committed or uploaded to public storage. The tracked template at `docs/templates/v0.3_annotation_template.csv` contains only the header.
+The pilot remains a subset of the full sample. If the requested paired counts, class totals, or author cap are infeasible after exclusions, sampling must fail rather than silently relax constraints.
 
-No author identities or row-level identifiers are exported in the aggregate summary. A non-identifying aggregate copy is tracked at `results/v0.3/sample_summary.json`. The local sample manifest is a sensitive linkage file; restrict access and delete it/packets when no longer needed, subject to project data-retention practice.
+## Blinding and local files
 
-## Annotation procedure
+Generated material is stored under ignored `data/processed/v0.3/`.
 
-### Local terminal helper
+Annotator packets contain only:
 
-After generating the blinded pilot packet and annotator-specific template, Annotator 1 can start the human-only local workflow with:
+- `report_id`
+- `dream_text`
+
+Per-annotator templates contain only opaque report IDs, annotator IDs, and annotation fields. They omit labels, author identity, pairing/component information, tags, categories and source metadata.
+
+The report text itself may reveal lucid-dream language. This cannot be completely blinded and is a limitation.
+
+## Schema revision and migration rule
+
+The v0.3.1 schema supersedes the original broad fields `awareness`, `agency`, `control`, `metacognition`, `waking_memory`, and `stability`.
+
+Because the operational definitions changed, **do not silently migrate any human ratings made under the older rubric**. Preserve old local files if needed for provenance, regenerate annotator templates, and annotate the revised fields from the report text.
+
+The annotation helper intentionally refuses old-schema saved files.
+
+## Annotation layers
+
+### Whole-dream phenomenology
+
+- `lucid_insight`
+- `intentional_agency`
+- `internal_commentary`
+- `self_reflection`
+- `state_reasoning`
+- `waking_memory`
+- `prospective_intention_memory`
+- `control_attempt`
+- `control_success`
+- `control_domain`
+- sensory modality indicators
+- `emotional_intensity`
+- `emotional_valence`
+- `dream_instability`
+- `loss_of_lucidity`
+- `awakening`
+
+### Transition-to-lucidity layer
+
+- `anomaly_present`
+- `anomaly_noticed`
+- `reality_testing`
+- `dream_rationalization`
+- `route_to_lucidity`
+- `transition_outcome`
+
+The transition layer is exploratory. It is motivated by established constructs but the exact sequence is a LucidBench operationalization, not a previously validated questionnaire.
+
+## Narrative evidence limitation
+
+Retrospective dream reports are incomplete descriptions of dream experience. A zero generally means **not evidenced in the report**, not proven absence.
+
+This is especially important for metacognitive events, memory access and internal reasoning. All conclusions must be phrased as properties of reported evidence unless independently validated with direct questioning or laboratory data.
+
+## Human annotation procedure
+
+Annotator 1:
 
 ```bash
 python -m scripts.annotate_pilot --annotator annotator_1
 ```
 
-The helper reads only `annotator_1_pilot_packet.csv` and `annotator_1_annotation_template.csv`; it does not access the sample manifest or linkage metadata. It displays the opaque report ID, report text, and brief rubric reminders, and does not infer or suggest scores. Accepted field values are autosaved to the ignored local file `data/processed/v0.3/annotator_1_annotations.csv`. On restart, it begins at the first report with any incomplete score. At a prompt, enter `next`, `previous`, `save`, `quit`, `rubric`, or `progress`; `quit` saves before exit. To check completion without opening reports, run:
+Annotator 2 uses the same command with `annotator_2`.
+
+Before starting after this revision, regenerate the local annotation sample/templates. If an old `annotator_*_annotations.csv` exists, archive or remove it locally before starting the revised pilot.
+
+The helper:
+
+- reads only the blinded packet and matching template;
+- displays no source label, author identity, pair status or sampling component;
+- suggests no scores;
+- autosaves accepted entries;
+- resumes from the first incomplete row;
+- rejects schema-inconsistent control combinations.
+
+Check completion:
 
 ```bash
 python -m scripts.annotate_pilot --annotator annotator_1 --check
 ```
 
-The check reports completion counts, missing score fields, duplicate opaque report IDs, and schema-validation status. Notes are optional short paraphrases only; do not copy report text or add identifying details. The helper is a human annotation interface only and does not calculate inter-rater agreement.
+After both annotators complete the pilot, combine their rows and validate:
 
-1. Two independent annotators receive separately shuffled pilot packets with the same 120 report texts and opaque IDs. They work independently and do not see each other's ratings, corpus labels, author identities, or which reports are paired.
-2. Annotate every rubric field in `docs/PHENOMENOLOGY_RUBRIC.md`. Leave a field blank only when it is genuinely uninterpretable; explain ambiguity in notes without copying source text.
-3. Do not put dream text, direct quotations, author information, or other identifying details into notes. The generated CSVs are local and ignored; do not add completed ratings to Git.
-4. After both pilot files are complete, combine rows with their assigned `annotator_id`, validate, and compute agreement:
+```bash
+python -m scripts.validate_annotations \
+  --annotations data/processed/v0.3/pilot_annotations_combined.csv \
+  --require-complete \
+  --agreement-output data/processed/v0.3/pilot_agreement.json
+```
 
-   ```bash
-   python -m scripts.validate_annotations \
-     --annotations data/processed/v0.3/pilot_annotations_combined.csv \
-     --require-complete \
-     --agreement-output data/processed/v0.3/pilot_agreement.json
-   ```
+## Reliability analysis
 
-5. Review disagreements by construct, refine the rubric before the remaining 480 reports, and preserve the pilot scores/rubric version. If a rubric change alters an operational definition, re-annotate affected pilot items before combining pilot and main-study labels.
-6. Do not calculate inferential hypothesis tests or describe human-validated findings until annotation data exist and the pilot review decision is recorded.
+Calculate agreement only from observed paired ratings.
 
-## Reliability outputs and practical guidance
+- quadratic-weighted Cohen's kappa and squared-ordinal Krippendorff alpha for ordinal fields and confidence;
+- unweighted Cohen's kappa and nominal Krippendorff alpha for binary and nominal fields;
+- raw percent agreement and paired counts for every field;
+- retain undefined reliability as null when there is no variation or no paired evidence.
 
-The validator calculates, only from observed paired ratings:
+Pilot review heuristics remain workflow guidance rather than truth criteria:
 
-- quadratic-weighted Cohen's kappa for ordinal dimensions and confidence;
-- unweighted Cohen's kappa for binary sensory indicators and nominal emotional valence;
-- Krippendorff's alpha using squared ordinal distance for ordinal fields and nominal disagreement for categorical fields; and
-- raw percent agreement and paired item counts for each field.
+- <0.60: substantial operationalization concern;
+- 0.60–0.79: provisional; inspect and clarify;
+- ≥0.80: encouraging, while still examining prevalence and disagreement cases.
 
-Blank values are pairwise omitted per field. The output reports no numerical reliability value when there are no paired scores for a field. No scores are imputed. Kappa/alpha can be undefined when there is no expected disagreement or no rating variation; `null` is retained rather than replaced by zero.
+For sparse transition events, raw agreement and prevalence must be reported alongside kappa/alpha because chance-corrected coefficients may be unstable.
 
-Tentative pilot rubric-review guidance (not universal scientific cutoffs):
+## Hypotheses
 
-- alpha or weighted kappa below 0.60: treat as a substantial operationalization problem; inspect disagreements and revise before scaling;
-- 0.60–0.79: provisional agreement; clarify definitions/examples and consider a second calibration round;
-- 0.80 or above: encouraging for this pilot, but still inspect construct validity, prevalence effects, and disagreement cases.
+### Confirmatory construct hypotheses
 
-These are workflow heuristics, not pass/fail criteria for truth, clinical use, or universal reliability. Report item counts, confidence intervals when later justified, prevalence, and the type of coefficient alongside any estimate.
+- **H1:** `lucid_insight` and control are positively related but empirically separable.
+- **H2:** Explicit lucid insight can occur without successful dream control.
+- **H3:** State reasoning is more strongly associated with lucid insight than raw sensory modality count.
+- **H4:** Explicit waking-memory access is more frequently evidenced in corpus-labeled lucid than nonlucid reports.
 
-## Preregistered hypotheses
+### Exploratory transition hypotheses
 
-All hypotheses below are to be tested only after the human annotation dataset and pilot decisions exist.
+- **T1:** Some reports will show anomaly noticing and state reasoning without explicit lucid insight (`near_lucid` outcome).
+- **T2:** Among reports with anomaly noticing and state reasoning, reasoning-based lucid transitions and near-lucid rationalizations will show distinguishable annotation profiles.
+- **T3:** Lucid transitions need not be reasoning-based; spontaneous/intuitive and wake-initiated routes may occur.
+- **T4:** Post-insight control success, instability, loss of lucidity and awakening may vary independently.
 
-### Confirmatory
+The pilot's primary purpose is reliability/feasibility, not testing these hypotheses.
 
-- **H1:** Dream awareness/lucidity and dream control are positively related but empirically separable.
-- **H2:** High awareness can occur with low control. Operationally, reports with awareness = 2 and control = 0 or 1 should occur at a nonzero rate; quantify uncertainty and do not infer separability from isolated cases.
-- **H3:** Metacognition is more strongly associated with lucid awareness than raw sensory richness.
-- **H4:** Waking-memory access is more frequent in lucid than nonlucid reports.
+## Analysis plan after pilot approval
 
-### Exploratory
+1. Report prevalence/missingness for all fields and transition outcomes.
+2. Report reliability by field before combining annotators.
+3. For the paired mixed-label component, compare each author's two reports with paired ordinal/binary/nominal methods appropriate to the field.
+4. Analyze the independent component separately.
+5. For pooled analyses, cluster/resample at author level so two reports from one author are not treated as independent.
+6. Analyze control as attempt → success conditional on attempt, and separately by domain.
+7. For transition analyses, describe sequence components and compare:
+   - no-transition reports;
+   - near-lucid reports;
+   - reasoning-based lucid transitions;
+   - spontaneous/intuitive lucid transitions;
+   - wake-initiated transitions.
+8. Treat rare transition categories descriptively if cell counts do not support stable inference.
+9. Do not claim that corpus text establishes neural mechanisms, causal induction pathways, or validated phenomenological markers.
 
-- **H5:** Increased awareness/control may be associated with reported dream instability or awakening.
-- Associations of emotion, valence, agency, individual sensory modalities, and confidence with awareness/control.
-- Any post-hoc subgroup, lexical, demographic, or temporal analyses.
+## Pilot decision rule
 
-## Statistical analysis plan
+After double-coding the 120 reports:
 
-The pilot's primary role is rubric feasibility and inter-rater reliability, not hypothesis testing.
+- inspect disagreements by construct and transition category;
+- revise definitions/examples where needed;
+- preserve the exact rubric version used for the pilot;
+- if a construct definition changes materially, re-annotate affected pilot fields before combining pilot and main-study data;
+- only then proceed to the remaining 480 reports.
 
-After rubric refinement and completion:
-
-1. Report class-stratified dimension distributions, missingness, sensory-count distributions, and contingency tables for awareness × control, awareness × agency, and awareness × metacognition.
-2. **Within-author paired comparisons:** compare each selected mixed-label author's lucid and nonlucid ratings using paired differences or an appropriate paired ordinal/binary model. Report the number of complete author pairs and paired effect estimates with uncertainty. This component is particularly useful for reducing person-specific writing-style and reporting confounds because each author serves as their own comparison. It does not remove time-varying context or corpus-label selection bias and is not a causal design.
-3. **Between-author comparisons:** analyze the independent component separately, comparing reports from label-exclusive authors. Account for any multiple reports from one author with author-clustered uncertainty or a justified mixed-effects model; report effect sizes and uncertainty. This estimates label differences between different authors and is not interchangeable with the within-author estimate.
-4. **Overall author-clustered analyses:** use the full sample only with author as the clustering/resampling unit (or a justified mixed-effects structure), so the two reports in a pair are not treated as independent observations. Report the paired and independent component contributions, consider a component-by-label interaction, and show component-specific estimates alongside pooled estimates. Use author-level bootstrap resampling so all reports from each author move together.
-5. Summarize ordinal associations with Spearman correlations and author-clustered bootstrap uncertainty. Report the awareness-control relationship as a dimensional association, not a binary proxy for lucidity.
-6. Test H3 by comparing the association of awareness with metacognition against its association with sensory richness using a pre-specified sensory-count summary; avoid comparing unstandardized coefficients across incompatible scales.
-7. For H2, report the frequency/proportion and author-clustered uncertainty of high-awareness/low-control reports; describe the joint distribution rather than selecting illustrative reports post hoc.
-8. Treat H5 and all unregistered analyses as exploratory; control multiplicity for families of exploratory tests and label them clearly.
-9. Consider latent structure/factor analysis only if pilot reliability is adequate, observed category frequencies are sufficient, and the effective sample size (authors, not just reports) supports the model. With 600 reports and repeated measures, adequacy is not assumed in advance. Do not force a one-factor “lucidity” score.
-10. Keep the sampling component, strata, and paired-data availability visible in reporting; do not treat the 600 reports as 600 independent authors.
-
-No significance tests are currently run because no human annotations exist.
-
-## Ethics, licensing, and privacy
-
-This study uses only existing public corpus material. Do not collect new dream reports, recruit participants, perform sleep manipulation, or acquire EEG/physiological data under this protocol. A future prospective study involving participants or new data collection must receive appropriate institutional ethics/IRB review before recruitment or data collection.
-
-The dataset is CC BY-NC 4.0. Keep source text and the ID-to-text linkage local, control access to annotation packets, and do not commit dream text, private notes, completed annotation files, or row-level sample manifests. The project does not diagnose sleep or mental-health conditions.
+PR #2 should remain unmerged until the revised pilot schema and tests are reviewed.
