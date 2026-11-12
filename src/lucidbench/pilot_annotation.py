@@ -353,50 +353,67 @@ def run_session(
         output_fn(f"Report ID: {report_id}")
         output_fn(str(report_text))
         _print_rubric_summary()
+
+        navigation = None
         for field in PROMPT_FIELDS:
-            current = str(annotations.at[index, field])
-            value, command = _prompt_value(field, current, input_fn, output_fn)
-            if command == "rubric":
-                _print_rubric_summary()
-                continue
-            if command == "progress":
-                _print_progress(annotations)
-                continue
-            if command == "save":
+            while True:
+                current = str(annotations.at[index, field])
+                value, command = _prompt_value(field, current, input_fn, output_fn)
+
+                if command == "rubric":
+                    _print_rubric_summary()
+                    continue
+                if command == "progress":
+                    _print_progress(annotations)
+                    continue
+                if command == "save":
+                    save_annotations(annotations, output_path)
+                    output_fn("Progress saved.")
+                    continue
+                if command == "quit":
+                    save_annotations(annotations, output_path)
+                    output_fn("Progress saved. Quitting.")
+                    _print_completion_summary(packet, annotations)
+                    return
+                if command in {"next", "previous"}:
+                    save_annotations(annotations, output_path)
+                    navigation = command
+                    break
+
+                assert value is not None
+                annotations.at[index, field] = value
+                row_errors = validate_annotation_row(
+                    annotations.iloc[index].to_dict()
+                )
+                if row_errors:
+                    annotations.at[index, field] = ""
+                    output_fn(
+                        "The value failed schema validation; please re-enter it."
+                    )
+                    output_fn("; ".join(row_errors))
+                    continue
                 save_annotations(annotations, output_path)
-                output_fn("Progress saved.")
-                continue
-            if command == "quit":
-                save_annotations(annotations, output_path)
-                output_fn("Progress saved. Quitting.")
-                _print_completion_summary(packet, annotations)
-                return
-            if command == "next":
-                save_annotations(annotations, output_path)
-                index = min(index + 1, len(packet) - 1)
                 break
-            if command == "previous":
-                save_annotations(annotations, output_path)
-                index = max(index - 1, 0)
+
+            if navigation is not None:
                 break
-            assert value is not None
-            annotations.at[index, field] = value
-            row_errors = validate_annotation_row(annotations.iloc[index].to_dict())
-            if row_errors:
-                annotations.at[index, field] = ""
-                output_fn("The value failed schema validation; please re-enter it.")
-                output_fn("; ".join(row_errors))
-                continue
-            save_annotations(annotations, output_path)
+
+        if navigation == "previous":
+            index = max(index - 1, 0)
+            continue
+        if navigation == "next":
+            index += 1
+            continue
+
+        save_annotations(annotations, output_path)
+        next_incomplete = _first_incomplete(
+            annotations.iloc[index + 1 :].reset_index(drop=True)
+        )
+        if next_incomplete is None:
+            index = len(packet)
         else:
-            save_annotations(annotations, output_path)
-            next_incomplete = _first_incomplete(
-                annotations.iloc[index + 1 :].reset_index(drop=True)
-            )
-            if next_incomplete is None:
-                index = len(packet)
-            else:
-                index = index + 1 + next_incomplete
+            index = index + 1 + next_incomplete
+
     _print_completion_summary(packet, annotations)
 
 
