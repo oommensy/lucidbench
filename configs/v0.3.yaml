@@ -1,3 +1,4 @@
+schema_version: 0.3.1
 seed: 303
 pilot_seed: 30303
 data_path: data/raw/dreamviews-posts.tsv
