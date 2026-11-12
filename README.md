@@ -1,16 +1,18 @@
 # LucidBench
 
-**LucidBench — Computational Markers of Lucidity, Agency, Control, and Metacognition in Dream Reports**
+**LucidBench — Computational Study of Lucid Insight, Agency, Control, and Transitions in Dream Reports**
 
 LucidBench is an open computational dream-science research project. Its initial goal is to study whether lucid and non-lucid dreams exhibit reproducible computational and linguistic differences, with special attention to separating:
 
-- lucidity / awareness of dreaming;
-- agency;
-- dream control;
-- metacognition;
-- waking-memory access;
-- sensory and perceptual features; and
-- emotional characteristics.
+- lucid insight / awareness of dreaming;
+- intentional agency;
+- metacognitive and state reasoning;
+- waking-memory and prospective-intention access;
+- attempted and successful dream control across domains;
+- transitions into lucidity, including near-lucid/failed transitions;
+- sensory and perceptual features;
+- emotion; and
+- dream stability, loss of lucidity, and awakening.
 
 The project is intended to support reproducible research and, over time, collaboration with academic sleep and dream researchers. Lucidity is not treated as interchangeable with agency or dream control.
 
@@ -18,8 +20,9 @@ The project is intended to support reproducible research and, over time, collabo
 
 1. Can lucid vs. non-lucid dream reports be predicted above lexical baselines when evaluation is held out by dreamer?
 2. Which linguistic features are associated with lucidity after controlling for author leakage, report length, and explicit label vocabulary?
-3. Are awareness, agency, control, metacognition, waking-memory access, sensory/perceptual features, and emotional characteristics empirically separable?
-4. How well do models generalize to unseen dreamers and, eventually, independently collected laboratory reports?
+3. Are lucid insight, intentional agency, state reasoning, memory access, and dream control empirically separable in human-coded dream reports?
+4. What differentiates reports in which anomaly-related reasoning culminates in lucid insight from reports in which anomalies are rationalized without lucidity?
+5. How well do models generalize to unseen dreamers and, eventually, independently collected laboratory reports?
 
 ## Scope of v0.1
 
@@ -73,20 +76,25 @@ The v0.2 baseline, lexical ablation, length-matched sensitivity analysis, and au
 
 See [`docs/RESEARCH_PROTOCOL.md`](docs/RESEARCH_PROTOCOL.md) for the planned protocol and threats to validity.
 
-## Planned phenomenology schema
+## Planned phenomenology and transition schema
 
-| Dimension | Operational question |
+The v0.3.1 rubric was revised after expert consultation and a construct crosswalk against LuCiD, DLQ, MACE-related work, LUSK, and the LDCQ framework.
+
+| Layer | Fields / question |
 |---|---|
-| Awareness | Does the dreamer explicitly recognize the experience as a dream? |
-| Agency | Does the dreamer intentionally choose actions? |
-| Control | Does the dreamer deliberately alter dream content or the environment? |
-| Metacognition | Does the dreamer reason about their own mental state or dream state? |
-| Waking-memory access | Does the dreamer access information or intentions from waking life? |
-| Sensory/perceptual features | Which sensory modalities and perceptual qualities are reported? |
-| Emotional characteristics | Which emotions are reported, and how are they characterized? |
-| Stability | Does awareness/control appear to affect continuation, fading, or termination? |
+| Lucid insight | Does the dreamer explicitly recognize or question that the current experience is a dream? |
+| Intentional agency | Does the dreamer deliberately initiate or sustain goal-directed action? |
+| Reflective cognition | Are internal commentary, self-reflection, or state-related reasoning evidenced? |
+| Memory | Is waking-life information or a prospective waking intention explicitly accessed? |
+| Transition to lucidity | Are anomalies noticed, tested, reasoned about, rationalized, or followed by lucid insight? |
+| Dream control | Was control attempted, how successful was it, and which domain was involved? |
+| Sensory evidence | Which sensory modalities are described? |
+| Emotion | What emotional intensity and predominant valence are evidenced? |
+| Stability / termination | Is instability, loss of lucidity, or awakening explicitly reported? |
 
-See [`docs/ANNOTATION_RUBRIC.md`](docs/ANNOTATION_RUBRIC.md). The rubric is a proposed annotation framework; its dimensions require human validation before being treated as validated measures.
+The transition layer distinguishes `no_transition`, `near_lucid`, and `lucid` outcomes and records reasoning-based, spontaneous/intuitive, wake-initiated, or unclear routes to lucidity. This exact transition representation is exploratory; it is not claimed to be an established validated scale.
+
+See [`docs/PHENOMENOLOGY_RUBRIC.md`](docs/PHENOMENOLOGY_RUBRIC.md), [`docs/V0.3_CONSTRUCT_CROSSWALK.md`](docs/V0.3_CONSTRUCT_CROSSWALK.md), and [`docs/ANNOTATION_PROTOCOL_V0.3.md`](docs/ANNOTATION_PROTOCOL_V0.3.md).
 
 ## Repository structure
 
@@ -140,17 +148,30 @@ The audit found a particularly important corpus artifact: all labeled nonlucid r
 
 The higher language-model results persist across repeated splits and author caps, but the structural control is above chance and forum categories strongly encode the assigned class. This supports reproducibility of text-based label discrimination in this corpus, **not** validated computational markers of lucid-dream phenomenology.
 
-## v0.3 — Phenomenology annotation study
+## v0.3 / v0.3.1 — Phenomenology and lucidity-transition annotation study
 
-v0.2 showed robust label discrimination in one forum corpus. v0.3 does **not** assume those lexical signals are phenomenological markers; it builds a human-validated dimensional annotation study to test whether awareness/lucidity, agency, control, metacognition, waking-memory access, sensory richness, emotion, and stability can be distinguished. The configured 600-report sample contains 150 mixed-label authors with one lucid and one nonlucid report each, plus 150 independently sampled reports per label from other, label-exclusive authors. The author cap is two. The 120-report double-annotated pilot contains 30 such pairs (60 reports) and 30 independent reports per label (60 reports), for 60 lucid and 60 nonlucid reports overall. Report lengths are approximately matched, and detected cross-author duplicates/near-duplicates are excluded. The paired within-author analysis is intended to reduce person-specific writing-style and reporting confounds; it complements, rather than replaces, between-author and overall author-clustered analyses.
+v0.2 showed reproducible discrimination of corpus labels but did not establish phenomenological markers. v0.3 created the blinded, reproducible human-annotation sample. **v0.3.1 keeps that sample unchanged and revises the annotation constructs** after expert consultation and review of established lucid-dream questionnaires.
 
-The sample and dream-text annotation packets are generated locally under ignored `data/processed/v0.3/`; annotator-facing files do not contain corpus labels, author identities, or pairing indicators. A non-identifying aggregate summary is tracked in [`results/v0.3/sample_summary.json`](results/v0.3/sample_summary.json); the local manifest alone contains opaque author-cluster and pair keys for later analysis. No human annotations, agreement estimates, or hypothesis tests have been produced. See [`docs/ANNOTATION_PROTOCOL_V0.3.md`](docs/ANNOTATION_PROTOCOL_V0.3.md) and [`docs/PHENOMENOLOGY_RUBRIC.md`](docs/PHENOMENOLOGY_RUBRIC.md).
+The configured 600-report sample contains 150 mixed-label authors with one corpus-labeled lucid and one corpus-labeled nonlucid report each, plus 150 independently sampled reports per label from other label-exclusive authors. The 120-report pilot contains 30 such mixed-label pairs (60 reports) plus 60 independent reports, for a hidden corpus-label balance of 60/60. Maximum contribution is two reports per author.
+
+The revised annotation model separates:
+- lucid insight from intentional agency;
+- internal commentary/self-reflection from state-related reasoning;
+- waking-memory access from prospective intention memory;
+- control attempt from control success and control domain;
+- sensory evidence from stability;
+- dream instability, loss of lucidity, and awakening; and
+- whole-dream phenotype from a separate transition-to-lucidity layer.
+
+The transition layer records anomalies, anomaly noticing, reality testing, dream-consistent rationalization, route to lucidity, and transition outcome. It is designed to make "near-lucid" cases analyzable: reports in which reflective processing approaches dream-state recognition but does not culminate in explicit lucid insight.
+
+The sample and dream-text packets remain local under ignored `data/processed/v0.3/`; annotator-facing files omit corpus labels, author identity, and pairing indicators. No human annotations, agreement estimates, or phenomenological findings are claimed yet. Because the v0.3.1 operational definitions changed, older local annotation files must not be silently migrated; regenerate the templates and re-annotate under the revised rubric.
 
 ## Research status
 
 - **Produced in v0.2:** corpus summary, author-disjoint TF-IDF baseline, lexical-cue ablation, author-cluster bootstrap intervals, length-matched sensitivity analysis, and coefficient inspection.
 - **Robustness analyses:** repeated author-disjoint splits, equal-author-weighted metrics, ten-report author cap sensitivity, duplicate audit, structural negative control, and stricter author-ID requirement.
-- **v0.3 framework:** annotation rubric, reproducible local sample, 120-report double-annotation pilot design, and agreement-analysis code are ready; no annotations or reliability results exist yet.
+- **v0.3.1 framework:** the original reproducible 120-report pilot/sample design is preserved; the rubric and schema are revised around lucid insight, transition-to-lucidity, and multidomain control. Human reliability results do not yet exist.
 - **Still planned:** human annotation and rubric refinement, then later external laboratory validation.
 - **Validated findings:** none are claimed. These baseline associations are not causal, clinically useful, or independently validated.
 
@@ -162,10 +183,11 @@ The sample and dream-text annotation packets are generated locally under ignored
 - TF-IDF baseline; and
 - interpretable coefficient analysis.
 
-**Phase 2 — Phenomenology annotations**
-- manually label a stratified sample;
-- estimate inter-rater reliability; and
-- compare rule-based, embedding, and LLM annotations.
+**Phase 2 — Phenomenology and transition annotations**
+- double-code the revised 120-report pilot;
+- estimate field-level inter-rater reliability;
+- refine the transition-to-lucidity and control constructs before scaling to the remaining sample; and
+- later compare human labels with rule-based, embedding, and LLM annotations.
 
 **Phase 3 — Representation learning**
 - sentence/document embeddings;
@@ -187,4 +209,4 @@ If you use the underlying dataset, cite its original creator and record. LucidBe
 
 ## Project status
 
-Research prototype — v0.2 baseline experiments.
+Research prototype — v0.2 baseline merged; v0.3.1 human-annotation framework in draft PR #2.
