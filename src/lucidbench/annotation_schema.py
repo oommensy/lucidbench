@@ -258,7 +258,7 @@ def paired_agreement(
         )
         output["fields"][field] = {
             "n_paired": len(paired),
-            "percent_agreement": float(np.mean(values_left == values_right)),
+            "percent_agreement": float(\n                np.mean(np.asarray(values_left) == np.asarray(values_right))\n            ),
             "cohens_kappa": _finite_or_none(kappa),
             "cohens_kappa_weighting": weights or "unweighted",
             "krippendorff_alpha": _krippendorff_alpha(
