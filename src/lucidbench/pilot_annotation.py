@@ -14,9 +14,9 @@ from lucidbench.annotation_schema import (
     ANNOTATION_COLUMNS,
     BINARY_FIELDS,
     CONFIDENCE_VALUES,
+    NOMINAL_FIELDS,
     ORDINAL_FIELDS,
     SCORE_FIELDS,
-    VALENCE_VALUES,
     validate_annotation_frame,
     validate_annotation_row,
 )
@@ -24,36 +24,69 @@ from lucidbench.annotation_schema import (
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = ROOT / "data/processed/v0.3"
 RUBRIC_PATH = ROOT / "docs/PHENOMENOLOGY_RUBRIC.md"
+
 PROMPT_FIELDS = (
-    "awareness",
-    "agency",
-    "control",
-    "metacognition",
+    "lucid_insight",
+    "intentional_agency",
+    "internal_commentary",
+    "self_reflection",
+    "state_reasoning",
     "waking_memory",
-    *BINARY_FIELDS,
+    "prospective_intention_memory",
+    "anomaly_present",
+    "anomaly_noticed",
+    "reality_testing",
+    "dream_rationalization",
+    "route_to_lucidity",
+    "transition_outcome",
+    "control_attempt",
+    "control_success",
+    "control_domain",
+    "sensory_visual",
+    "sensory_auditory",
+    "sensory_tactile",
+    "sensory_proprioceptive",
+    "sensory_smell_taste",
     "emotional_intensity",
     "emotional_valence",
-    "stability",
+    "dream_instability",
+    "loss_of_lucidity",
+    "awakening",
     "confidence",
     "notes",
 )
+
 FIELD_GUIDANCE = {
-    "awareness": "In-dream recognition or questioning: 0 none, 1 possible/questioning, 2 explicit recognition.",
-    "agency": "Intentional action: 0 none evidenced, 1 brief/reactive choice, 2 sustained goal-directed action.",
-    "control": "Deliberate alteration: 0 none, 1 attempted/partial/uncertain, 2 clearly successful.",
-    "metacognition": "In-dream reflection/monitoring: 0 none, 1 limited, 2 explicit reasoning.",
-    "waking_memory": "Waking-life retrieval during dream: 0 none, 1 vague, 2 explicit memory/plan/fact access.",
-    "sensory_visual": "Visual evidence described: 0 absent, 1 present.",
-    "sensory_auditory": "Auditory evidence described: 0 absent, 1 present.",
-    "sensory_tactile": "Tactile evidence described: 0 absent, 1 present.",
-    "sensory_proprioceptive": "Body position/movement/balance evidence: 0 absent, 1 present.",
-    "sensory_smell_taste": "Smell or taste evidence described: 0 absent, 1 present.",
-    "emotional_intensity": "Emotional strength: 0 none/minimal, 1 mild/moderate, 2 strong/intense.",
+    "lucid_insight": "Dream-state insight: 0 not evidenced, 1 questioning/partial, 2 explicit recognition that this is a dream.",
+    "intentional_agency": "Intentional action: 0 not evidenced, 1 brief/reactive choice, 2 sustained goal-directed action.",
+    "internal_commentary": "In-dream wondering/commentary about events: 0 not evidenced, 1 evidenced.",
+    "self_reflection": "Reflection on own thoughts, feelings, motives, or behavior: 0 not evidenced, 1 evidenced.",
+    "state_reasoning": "Reasoning about current state/reality: 0 not evidenced, 1 limited, 2 explicit/sustained.",
+    "waking_memory": "Waking-life retrieval: 0 not evidenced, 1 vague, 2 explicit fact/episode access.",
+    "prospective_intention_memory": "Remembered waking intention/plan while dreaming: 0 not evidenced, 1 evidenced.",
+    "anomaly_present": "Bizarre/impossible/inconsistent event is described: 0 no/not evidenced, 1 yes.",
+    "anomaly_noticed": "Dreamer notices an anomaly as unusual: 0 not evidenced, 1 evidenced.",
+    "reality_testing": "Dreamer deliberately tests whether experience is dream/waking reality: 0 not evidenced, 1 evidenced.",
+    "dream_rationalization": "An anomaly is explained away within the dream instead of producing lucid insight: 0 not evidenced, 1 evidenced.",
+    "route_to_lucidity": "none, reasoning_based, spontaneous_intuitive, wake_initiated, or other_unclear.",
+    "transition_outcome": "no_transition, near_lucid, lucid, or unclear.",
+    "control_attempt": "Deliberate attempt to influence dream content/state: 0 not evidenced, 1 evidenced.",
+    "control_success": "not_applicable, failed, partial_uncertain, or successful.",
+    "control_domain": "none, cognition, emotion, body, movement, characters, environment, physics, or multiple.",
+    "sensory_visual": "Visual evidence described: 0 not evidenced, 1 present.",
+    "sensory_auditory": "Auditory evidence described: 0 not evidenced, 1 present.",
+    "sensory_tactile": "Tactile evidence described: 0 not evidenced, 1 present.",
+    "sensory_proprioceptive": "Body movement/position/balance evidence: 0 not evidenced, 1 present.",
+    "sensory_smell_taste": "Smell or taste evidence described: 0 not evidenced, 1 present.",
+    "emotional_intensity": "Emotional strength: 0 none/not evidenced, 1 mild/moderate, 2 strong/intense.",
     "emotional_valence": "Predominant valence: negative, neutral_mixed, or positive.",
-    "stability": "Dream instability/ending: 0 none/stable, 1 fading/instability, 2 ending linked to awareness/control.",
+    "dream_instability": "Fading/instability: 0 not evidenced/stable, 1 threatened/limited, 2 clear collapse or major instability.",
+    "loss_of_lucidity": "Explicit transition from lucid to non-lucid: 0 not evidenced, 1 evidenced.",
+    "awakening": "Explicit awakening/termination into wakefulness: 0 not evidenced, 1 evidenced.",
     "confidence": "Coding clarity: low, medium, or high.",
-    "notes": "Optional short paraphrase only; do not quote report text or include identifying details.",
+    "notes": "Optional short paraphrase only; no quotations or identifying details.",
 }
+
 COMMANDS = {
     "next": "next",
     "next report": "next",
@@ -78,20 +111,23 @@ def parse_field_value(field: str, value: str) -> tuple[str | None, str | None]:
         return value, None
     if not value:
         return "", None
+
     if field in ORDINAL_FIELDS:
         allowed = {str(option) for option in ORDINAL_FIELDS[field]}
     elif field in BINARY_FIELDS:
         allowed = {"0", "1"}
-    elif field == "emotional_valence":
-        allowed = set(VALENCE_VALUES)
+    elif field in NOMINAL_FIELDS:
+        allowed = set(NOMINAL_FIELDS[field])
         value = value.lower()
     elif field == "confidence":
         allowed = set(CONFIDENCE_VALUES)
         value = value.lower()
     else:
         raise ValueError(f"Unknown annotation field: {field}")
+
     if value not in allowed:
         return None, f"Enter one of: {', '.join(sorted(allowed))}."
+
     candidate = {
         "report_id": "validation",
         "annotator_id": "validation",
@@ -118,7 +154,10 @@ def load_session(
 
     template = pd.read_csv(template_path, dtype=str, keep_default_na=False)
     if template.columns.tolist() != list(ANNOTATION_COLUMNS):
-        raise ValueError("The annotation template does not match the annotation schema.")
+        raise ValueError(
+            "The annotation template does not match the v0.3.1 schema. "
+            "Regenerate annotator templates before continuing."
+        )
     if template["report_id"].tolist() != packet_ids.tolist():
         raise ValueError("The annotation template IDs do not align with the packet.")
     if set(template["annotator_id"]) != {annotator_id}:
@@ -129,7 +168,10 @@ def load_session(
             annotations_path, dtype=str, keep_default_na=False
         )
         if annotations.columns.tolist() != list(ANNOTATION_COLUMNS):
-            raise ValueError("The saved annotation file does not match the schema.")
+            raise ValueError(
+                "The saved annotation file uses an older schema. Preserve it as an "
+                "archive and regenerate a v0.3.1 annotation file; do not silently migrate scores."
+            )
         if annotations["report_id"].duplicated().any():
             raise ValueError("The saved annotation file contains duplicate report IDs.")
         if set(annotations["report_id"]) != set(packet_ids):
@@ -226,8 +268,9 @@ def _first_incomplete(annotations: pd.DataFrame) -> int | None:
 
 
 def _print_rubric_summary() -> None:
-    print("Rubric summary: score only evidence in the report; do not infer.")
-    print("Awareness, agency, and control are distinct; score dimensions independently.")
+    print("Rubric summary: annotate only evidence in the report; do not infer unreported experience.")
+    print("A 0 usually means 'not evidenced in the narrative', not proof the experience was absent.")
+    print("Lucid insight, agency, reasoning, and control are distinct.")
     for field in PROMPT_FIELDS:
         if field != "notes":
             print(f"- {field}: {FIELD_GUIDANCE[field]}")
@@ -263,17 +306,17 @@ def _prompt_value(
     input_fn: Callable[[str], str],
     output_fn: Callable[[str], None],
 ) -> tuple[str | None, str | None]:
-    allowed = (
-        "0/1/2"
-        if field in ORDINAL_FIELDS or field == "emotional_intensity"
-        else "0/1"
-        if field in BINARY_FIELDS
-        else "negative/neutral_mixed/positive"
-        if field == "emotional_valence"
-        else "low/medium/high"
-        if field == "confidence"
-        else "optional short paraphrase"
-    )
+    if field in ORDINAL_FIELDS:
+        allowed = "/".join(str(value) for value in ORDINAL_FIELDS[field])
+    elif field in BINARY_FIELDS:
+        allowed = "0/1"
+    elif field in NOMINAL_FIELDS:
+        allowed = "/".join(NOMINAL_FIELDS[field])
+    elif field == "confidence":
+        allowed = "/".join(CONFIDENCE_VALUES)
+    else:
+        allowed = "optional short paraphrase"
+
     while True:
         prompt = f"{field} ({allowed})"
         if current:
@@ -342,6 +385,7 @@ def run_session(
             if row_errors:
                 annotations.at[index, field] = ""
                 output_fn("The value failed schema validation; please re-enter it.")
+                output_fn("; ".join(row_errors))
                 continue
             save_annotations(annotations, output_path)
         else:
@@ -358,7 +402,7 @@ def run_session(
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Human-only local v0.3 pilot annotation; no scores are inferred."
+        description="Human-only local v0.3.1 pilot annotation; no scores are inferred."
     )
     parser.add_argument(
         "--annotator", required=True, choices=("annotator_1", "annotator_2")
@@ -380,6 +424,7 @@ def main() -> None:
         _print_completion_summary(packet, annotations)
         return
     print("Human annotation only. No scores are suggested or generated.")
+    print("v0.3.1 schema: regenerate local templates before starting if you used the older rubric.")
     run_session(packet, annotations, annotations_path)
 
 
