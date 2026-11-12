@@ -122,6 +122,26 @@ def test_prompt_retries_invalid_input_without_accepting_it():
     assert messages
 
 
+
+def test_rubric_command_reprompts_same_field(tmp_path):
+    packet = _packet(1)
+    annotations = _template(packet)
+    output_path = tmp_path / "annotator_1_annotations.csv"
+    prompts = iter(["rubric", *_answers()])
+
+    run_session(
+        packet,
+        annotations,
+        output_path,
+        input_fn=lambda _: next(prompts),
+        output_fn=lambda _: None,
+    )
+
+    saved = pd.read_csv(output_path, dtype=str, keep_default_na=False)
+    assert saved.loc[0, "lucid_insight"] == "1"
+    assert saved.loc[0, list(ORDINAL_FIELDS)].ne("").all()
+    assert saved.loc[0, "control_success"] == "not_applicable"
+
 def test_session_autosaves_each_value_and_quits_safely(tmp_path):
     packet = _packet()
     annotations = _template(packet)
