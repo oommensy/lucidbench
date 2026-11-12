@@ -114,6 +114,22 @@ def test_blank_pilot_template_returns_null_not_fabricated_agreement():
     assert result["fields"]["transition_outcome"]["krippendorff_alpha"] is None
 
 
+
+def test_percent_agreement_is_elementwise_across_multiple_reports():
+    rows = [
+        _valid_row("r1", "a1"),
+        _valid_row("r1", "a2"),
+        _valid_row("r2", "a1"),
+        _valid_row("r2", "a2"),
+    ]
+    rows[3]["lucid_insight"] = 2
+    frame = pd.DataFrame(rows, columns=ANNOTATION_COLUMNS)
+
+    result = paired_agreement(frame, annotator_ids=["a1", "a2"])
+
+    assert result["fields"]["lucid_insight"]["n_paired"] == 2
+    assert result["fields"]["lucid_insight"]["percent_agreement"] == 0.5
+
 def test_optimized_simhash_matches_bitwise_reference():
     shingles = {1, 2, 4, 9, 2**63, 2**64 - 1}
     expected = 0
