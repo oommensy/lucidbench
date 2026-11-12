@@ -1,0 +1,89 @@
+{
+  "sample_size": 600,
+  "requested_reports_per_class": 300,
+  "reports_per_class": {
+    "lucid": {
+      "reports": 300,
+      "authors": 285,
+      "length_stratum_counts": {
+        "0": 60,
+        "1": 60,
+        "2": 60,
+        "3": 61,
+        "4": 59
+      },
+      "pilot_reports": 60
+    },
+    "nonlucid": {
+      "reports": 300,
+      "authors": 279,
+      "length_stratum_counts": {
+        "0": 60,
+        "1": 60,
+        "2": 60,
+        "3": 60,
+        "4": 60
+      },
+      "pilot_reports": 60
+    }
+  },
+  "n_unique_authors": 414,
+  "author_cap": 2,
+  "maximum_sampled_reports_per_author": 2,
+  "authors_by_sampled_report_count": {
+    "1": 228,
+    "2": 186
+  },
+  "authors_contributing_both_labels": 150,
+  "paired_mixed_label_authors": 150,
+  "paired_reports": 300,
+  "paired_reports_per_class": {
+    "lucid": 150,
+    "nonlucid": 150
+  },
+  "pilot_paired_mixed_label_authors": 30,
+  "pilot_paired_reports": 60,
+  "pilot_paired_reports_per_class": {
+    "lucid": 30,
+    "nonlucid": 30
+  },
+  "independently_sampled_reports": 300,
+  "pilot_independently_sampled_reports": 60,
+  "author_disjoint_between_classes": false,
+  "mixed_label_authors_available_after_duplicate_exclusion": 1195,
+  "mixed_label_authors_selected": 150,
+  "reports_excluded_for_detected_cross_author_duplicates": 34,
+  "pilot_size": 120,
+  "pilot_n_unique_authors": 88,
+  "pilot_maximum_reports_per_author": 2,
+  "pilot_authors_by_sampled_report_count": {
+    "1": 56,
+    "2": 32
+  },
+  "pilot_requested_per_class": 60,
+  "pilot_paired_author_target": 30,
+  "pilot_annotator_template_rows": 240,
+  "length_balance": {
+    "lucid_mean_words": 352.49666666666667,
+    "nonlucid_mean_words": 349.36333333333334,
+    "mean_difference_words": 3.1333333333333258,
+    "standardized_mean_difference": 0.013393338024573098,
+    "paired_absolute_word_count_difference_mean": 0.13333333333333333,
+    "paired_absolute_word_count_difference_median": 0.0
+  },
+  "pilot_length_balance": {
+    "lucid_mean_words": 364.85,
+    "nonlucid_mean_words": 351.5833333333333,
+    "mean_difference_words": 13.266666666666708,
+    "standardized_mean_difference": 0.054035285133623705,
+    "paired_absolute_word_count_difference_mean": 0.0,
+    "paired_absolute_word_count_difference_median": 0.0
+  },
+  "seed": 303,
+  "pilot_seed": 30303,
+  "raw_dream_text_in_manifest": false,
+  "raw_dream_text_in_annotation_template": false,
+  "author_identities_in_annotator_files": false,
+  "source_labels_in_annotator_files": false,
+  "pairing_information_in_annotator_files": false
+}

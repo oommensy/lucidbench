@@ -46,6 +46,9 @@ data/processed/*
 !data/processed/.gitkeep
 results/*
 !results/.gitkeep
+!results/v0.3/
+results/v0.3/*
+!results/v0.3/sample_summary.json
 !results/v0.2/
 results/v0.2/*
 !results/v0.2/README.md
