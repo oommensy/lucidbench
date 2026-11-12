@@ -3,6 +3,7 @@ import pandas as pd
 from lucidbench.annotation_schema import (
     ANNOTATION_COLUMNS,
     BINARY_FIELDS,
+    NOMINAL_FIELDS,
     ORDINAL_FIELDS,
     derive_sensory_count,
     paired_agreement,
@@ -17,11 +18,16 @@ def _valid_row(report_id="report-1", annotator_id="annotator-1"):
         "report_id": report_id,
         "annotator_id": annotator_id,
         "emotional_valence": "neutral_mixed",
+        "control_success": "partial_uncertain",
+        "control_domain": "environment",
+        "route_to_lucidity": "reasoning_based",
+        "transition_outcome": "lucid",
         "confidence": "high",
         "notes": "Synthetic rationale only.",
     }
     row.update({field: 1 for field in ORDINAL_FIELDS})
     row.update({field: 0 for field in BINARY_FIELDS})
+    row["control_attempt"] = 1
     return row
 
 
@@ -29,25 +35,37 @@ def test_schema_accepts_valid_scores_and_rejects_out_of_range_values():
     row = _valid_row()
     assert validate_annotation_row(row) == []
 
-    row["awareness"] = 3
+    row["lucid_insight"] = 3
     row["sensory_visual"] = 2
     row["emotional_valence"] = "very_positive"
     row["confidence"] = "certain"
     errors = validate_annotation_row(row)
 
-    assert any("awareness" in error for error in errors)
+    assert any("lucid_insight" in error for error in errors)
     assert any("sensory_visual" in error for error in errors)
     assert any("emotional_valence" in error for error in errors)
     assert any("confidence" in error for error in errors)
+
+
+def test_control_dependency_rules_are_enforced():
+    row = _valid_row()
+    row["control_attempt"] = 0
+    row["control_success"] = "successful"
+    row["control_domain"] = "physics"
+    errors = validate_annotation_row(row)
+    assert any("control_success" in error for error in errors)
+    assert any("control_domain" in error for error in errors)
+
+    row["control_success"] = "not_applicable"
+    row["control_domain"] = "none"
+    assert validate_annotation_row(row) == []
 
 
 def test_annotation_frame_rejects_duplicate_report_annotator_pair():
     frame = pd.DataFrame(
         [_valid_row(), _valid_row(annotator_id="annotator-2"), _valid_row()]
     )
-
     errors = validate_annotation_frame(frame)
-
     assert any("duplicate report_id/annotator_id" in error for error in errors)
 
 
@@ -67,7 +85,7 @@ def test_sensory_count_is_derived_and_requires_all_modality_scores():
     assert derive_sensory_count(row) is None
 
 
-def test_agreement_is_computed_only_from_supplied_paired_ratings():
+def test_agreement_is_computed_for_ordinal_binary_and_nominal_fields():
     first = _valid_row("r1", "a1")
     second = _valid_row("r1", "a2")
     frame = pd.DataFrame([first, second], columns=ANNOTATION_COLUMNS)
@@ -75,29 +93,25 @@ def test_agreement_is_computed_only_from_supplied_paired_ratings():
     result = paired_agreement(frame, annotator_ids=["a1", "a2"])
 
     assert result["n_reports_with_both_annotators"] == 1
-    assert result["fields"]["awareness"]["n_paired"] == 1
-    assert result["fields"]["awareness"]["percent_agreement"] == 1.0
-    assert result["fields"]["awareness"]["cohens_kappa"] is None
-    assert result["fields"]["sensory_visual"]["percent_agreement"] == 1.0
-    assert result["fields"]["emotional_valence"]["krippendorff_alpha"] is None
-    assert result["fields"]["emotional_valence"]["cohens_kappa"] is None
+    assert result["fields"]["lucid_insight"]["percent_agreement"] == 1.0
+    assert result["fields"]["anomaly_noticed"]["percent_agreement"] == 1.0
+    assert result["fields"]["control_domain"]["percent_agreement"] == 1.0
+    assert result["fields"]["transition_outcome"]["percent_agreement"] == 1.0
 
 
 def test_blank_pilot_template_returns_null_not_fabricated_agreement():
     first = _valid_row("r1", "a1")
     second = _valid_row("r1", "a2")
-    for field in (*ORDINAL_FIELDS, *BINARY_FIELDS, "emotional_valence", "confidence"):
+    for field in (*ORDINAL_FIELDS, *BINARY_FIELDS, *NOMINAL_FIELDS, "confidence"):
         first[field] = ""
         second[field] = ""
     frame = pd.DataFrame([first, second], columns=ANNOTATION_COLUMNS)
 
     result = paired_agreement(frame, annotator_ids=["a1", "a2"])
 
-    assert result["n_reports_with_both_annotators"] == 1
-    assert result["fields"]["awareness"]["n_paired"] == 0
-    assert result["fields"]["awareness"]["percent_agreement"] is None
-    assert result["fields"]["awareness"]["cohens_kappa"] is None
-    assert result["fields"]["awareness"]["krippendorff_alpha"] is None
+    assert result["fields"]["lucid_insight"]["n_paired"] == 0
+    assert result["fields"]["lucid_insight"]["cohens_kappa"] is None
+    assert result["fields"]["transition_outcome"]["krippendorff_alpha"] is None
 
 
 def test_optimized_simhash_matches_bitwise_reference():
