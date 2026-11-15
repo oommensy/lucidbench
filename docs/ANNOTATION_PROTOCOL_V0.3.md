@@ -14,6 +14,15 @@ The scientific goals are:
 
 Lucidity is not assumed to be equivalent to control, agency, or metacognition.
 
+
+## Expert-feedback checkpoint
+
+External methodological feedback received after the v0.3.1 redesign supports retaining the three-part control representation — **attempt, success, and domain** — as a defensible simplification for narrative annotation.
+
+The same feedback reinforces the importance of treating pre-lucidity as a **trajectory or spectrum**, not assuming that every report belongs naturally to one discrete near-lucid state. The pilot should therefore preserve the component annotations (`anomaly_noticed`, `state_reasoning`, `reality_testing`, `dream_rationalization`, `lucid_insight`) and evaluate whether those components form reliably distinguishable transition profiles.
+
+Accordingly, `transition_outcome` remains a compact summary field for analysis, while the component-level sequence is primary for construct evaluation. The study should not assume in advance that anomaly noticing, reflective reasoning, rationalization, and lucid insight are strictly ordered stages in every dream.
+
 ## Conceptual grounding
 
 The v0.3.1 construct definitions were crosswalked against:
@@ -181,8 +190,8 @@ For sparse transition events, raw agreement and prevalence must be reported alon
 
 ### Exploratory transition hypotheses
 
-- **T1:** Some reports will show anomaly noticing and state reasoning without explicit lucid insight (`near_lucid` outcome).
-- **T2:** Among reports with anomaly noticing and state reasoning, reasoning-based lucid transitions and near-lucid rationalizations will show distinguishable annotation profiles.
+- **T1:** Some reports will show anomaly noticing and/or state reasoning without explicit lucid insight. These reports are provisionally summarized as `near_lucid`, but component patterns are primary.
+- **T2:** Among reports showing movement toward dream-state recognition, different component profiles — for example anomaly noticing without reasoning, reasoning with dream-consistent rationalization, and reasoning culminating in lucid insight — may be distinguishable.
 - **T3:** Lucid transitions need not be reasoning-based; spontaneous/intuitive and wake-initiated routes may occur.
 - **T4:** Post-insight control success, instability, loss of lucidity and awakening may vary independently.
 
@@ -196,7 +205,7 @@ The pilot's primary purpose is reliability/feasibility, not testing these hypoth
 4. Analyze the independent component separately.
 5. For pooled analyses, cluster/resample at author level so two reports from one author are not treated as independent.
 6. Analyze control as attempt → success conditional on attempt, and separately by domain.
-7. For transition analyses, describe sequence components and compare:
+7. For transition analyses, begin with **component-level profiles** rather than assuming a fixed stage model. Describe and compare combinations of anomaly noticing, internal commentary, state reasoning, reality testing, rationalization, and lucid insight. Then use the compact outcome/route categories for secondary summaries:
    - no-transition reports;
    - near-lucid reports;
    - reasoning-based lucid transitions;
