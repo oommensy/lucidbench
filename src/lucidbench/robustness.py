@@ -151,11 +151,12 @@ def _shingle_hashes(text: str, *, size: int = 5) -> set[int]:
 def _simhash(shingles: set[int]) -> int:
     if not shingles:
         return 0
-    accumulators = [0] * 64
-    for value in shingles:
-        for bit in range(64):
-            accumulators[bit] += 1 if value & (1 << bit) else -1
-    return sum((1 << bit) for bit, score in enumerate(accumulators) if score >= 0)
+    values = np.asarray(list(shingles), dtype=">u8")
+    bit_values = np.unpackbits(values.view(np.uint8)).reshape(-1, 64)[:, ::-1]
+    bit_sums = bit_values.sum(axis=0)
+    return sum(
+        (1 << bit) for bit, score in enumerate(bit_sums) if score * 2 >= len(shingles)
+    )
 
 
 def find_cross_author_duplicates(
