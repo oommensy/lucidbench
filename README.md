@@ -172,7 +172,8 @@ The sample and dream-text packets remain local under ignored `data/processed/v0.
 - **Produced in v0.2:** corpus summary, author-disjoint TF-IDF baseline, lexical-cue ablation, author-cluster bootstrap intervals, length-matched sensitivity analysis, and coefficient inspection.
 - **Robustness analyses:** repeated author-disjoint splits, equal-author-weighted metrics, ten-report author cap sensitivity, duplicate audit, structural negative control, and stricter author-ID requirement.
 - **v0.3.1 framework:** the original reproducible 120-report pilot/sample design is preserved; the rubric and schema are revised around lucid insight, transition-to-lucidity, and multidomain control. Human reliability results do not yet exist.
-- **Still planned:** human annotation and rubric refinement, then later external laboratory validation.
+- **External-validation track:** a prospective v0.4 protocol and reports-only ingestion scaffold are being prepared for an independent researcher dataset with repeated reports per participant and existing human content-analysis ratings. No external data or scores are in the repository.
+- **Still planned:** complete human annotation and rubric refinement, train/freeze the multidimensional model, then run external validation.
 - **Validated findings:** none are claimed. These baseline associations are not causal, clinically useful, or independently validated.
 
 ## Roadmap
@@ -195,9 +196,14 @@ The sample and dream-text packets remain local under ignored `data/processed/v0.
 - latent structure of awareness vs. control.
 
 **Phase 4 — External scientific collaboration**
-- validate against laboratory lucid-dream reports;
+- prospectively map independent human content-analysis constructs to LucidBench;
+- freeze model predictions before unsealing external human ratings;
+- evaluate report-level and within-person agreement on an independent repeated-measures dream-report dataset;
+- validate against additional laboratory lucid-dream reports;
 - align retrospective language with real-time dream signals where data access is possible; and
 - explore multimodal EEG + report representations with collaborating labs.
+
+See [`docs/EXTERNAL_VALIDATION_PROTOCOL.md`](docs/EXTERNAL_VALIDATION_PROTOCOL.md) for the leakage-safe external validation plan.
 
 ## Ethics and privacy
 
@@ -209,4 +215,4 @@ If you use the underlying dataset, cite its original creator and record. LucidBe
 
 ## Project status
 
-Research prototype — v0.2 baseline merged; v0.3.1 human-annotation framework in draft PR #2.
+Research prototype — v0.2 baseline merged; v0.3.1 human-annotation framework merged; v0.4 external-validation protocol in development.
