@@ -1,0 +1,11 @@
+reports_path: data/external/raw/reports.csv
+output_dir: data/external/processed
+report_id_column: report_id
+participant_id_column: participant_id
+condition_column: condition
+text_column: dream_text
+allowed_conditions:
+  - nonlucid
+  - lucid
+  - recent_nonlucid
+  - recent_lucid
