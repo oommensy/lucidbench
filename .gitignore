@@ -76,3 +76,6 @@ results/v0.2/robustness/*
 !results/v0.2/robustness/artifact_audit.json
 !results/v0.2/robustness/artifact_feature_summary.csv
 !results/v0.2/robustness/artifact_only_metrics.json
+
+data/external/*
+!data/external/.gitkeep
